@@ -2,22 +2,36 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>KAKAO Chocolatería | Catálogo & Pedidos · Tapalpa, Jalisco</title>
-  <meta name="description" content="Bombonería fina de montaña. Catálogo de bombones artesanales hechos a mano en el corazón de la sierra. Bandejas Real Kakao en Tapalpa, Jalisco.">
+  <meta name="description" content="Bombonería fina de montaña. Bandejas armadas, personalizadas y chocolate a granel en Tapalpa, Jalisco.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
-  <script src="https://sdk.mercadopago.com/js/v2"></script>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  
+  <!-- Open Graph / WhatsApp Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kakao-chocolateria-tapalpa.netlify.app/">
+  <meta property="og:title" content="KAKAO Chocolatería | Catálogo & Pedidos · Tapalpa, Jalisco">
+  <meta property="og:description" content="Bombonería fina de montaña. Bandejas armadas, personalizadas y chocolate a granel en Tapalpa.">
+  <meta property="og:image" content="assets/kakao_logo_circ.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="assets/kakao_logo_circ.png">
+  <script defer src="https://sdk.mercadopago.com/js/v2"></script>
 </head>
 <body>
 
-  <!-- Brand Hero with Bright Video Background & Luxury Glassmorphism -->
-  <header class="brand-hero">
+  <!-- ==========================================================================
+       HERO BANNER - INTACTO (Video/Portada + KAKAO CHOCOLATERÍA + CTA)
+       ========================================================================== -->
+  <header class="brand-hero" id="brandHero">
     <div class="hero-video-container">
-      <video class="hero-video-bg" autoplay muted loop playsinline poster="assets/hero_bg.jpg">
+      <video class="hero-video-bg" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/hero_bg.jpg">
         <source src="assets/hero_video.mp4" type="video/mp4">
         <source src="https://assets.mixkit.co/videos/42289/42289-720.mp4" type="video/mp4">
       </video>
@@ -31,7 +45,7 @@
         </div>
 
         <div class="brand-logo-wrap">
-          <img src="assets/kakao_logo_circ.png" alt="KAKAO Chocolatería Logo" class="brand-center-logo">
+          <img src="assets/kakao_logo_circ.png" alt="KAKAO Chocolatería Logo" class="brand-center-logo" fetchpriority="high">
         </div>
 
         <h1 class="brand-title">KAKAO</h1>
@@ -46,21 +60,22 @@
         <div class="brand-meta-pills">
           <span class="meta-pill">TAPALPA, JALISCO</span>
           <span class="meta-pill">PICK UP EN EL CENTRO</span>
+          <span class="meta-pill" style="border-color: var(--gold-warm); color: var(--gold-light); font-weight: 600;">⚡ ENTREGAS EL MISMO DÍA</span>
         </div>
 
         <div class="hero-cta-wrap">
-          <a href="#bandejas" class="btn-hero-order">
-            <span>ORDENAR BANDEJAS</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <button type="button" class="btn-hero-order" onclick="goToExperience()">
+            <span>ORDENAR AHORA</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <polyline points="19 12 12 19 5 12"></polyline>
             </svg>
-          </a>
+          </button>
         </div>
       </div>
     </div>
 
-    <a href="#bandejas" class="hero-scroll-indicator" aria-label="Ir a Bandejas">
+    <a href="#appMain" class="hero-scroll-indicator" aria-label="Ir a Colección" onclick="goToExperience(event)">
       <span class="scroll-text">Explorar Colección</span>
       <div class="scroll-mouse">
         <div class="scroll-wheel"></div>
@@ -68,263 +83,368 @@
     </a>
   </header>
 
-  <!-- Sticky Minimalist Navigation / Cart Bar -->
-  <nav class="sub-nav">
-    <div class="container sub-nav-inner">
-      <div class="nav-brand-small">
+  <!-- ==========================================================================
+       TOP APP BAR (Sticky al hacer scroll)
+       ========================================================================== -->
+  <nav class="app-top-nav" id="appTopNav">
+    <div class="container app-top-nav-inner">
+      <div class="nav-brand-group" onclick="navigateToView('entry')">
         <img src="assets/kakao_monograma.png" alt="K" class="nav-monogram">
-        <strong>KAKAO</strong> <span>· Tapalpa</span>
+        <div class="nav-title-group">
+          <strong>KAKAO</strong>
+          <span>· Tapalpa</span>
+        </div>
       </div>
-      <a href="#pedido" class="btn-order-pill" id="headerCartPill">
-        <span>MI PEDIDO · <strong id="headerTotalAmount">$360 MXN</strong></span>
-      </a>
+      <button type="button" class="nav-cart-pill" onclick="navigateToView('checkout')" style="display: none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span class="nav-cart-total" id="navCartTotal">$0 MXN</span>
+      </button>
     </div>
   </nav>
 
-  <main class="container main-content">
+  <!-- ==========================================================================
+       MAIN APP CONTAINER (SISTEMA DE RUTAS Y FLUJOS)
+       ========================================================================== -->
+  <main class="app-main container" id="appMain">
 
-    <!-- Sección 1: Bandejas Real Kakao -->
-    <section class="section-block" id="bandejas">
-      <div class="section-title-wrap text-center">
-        <span class="sub-kicker">COLECCIÓN ARTESANAL DE LA CASA</span>
-        <h2 class="main-heading">Bandejas Real Kakao</h2>
-        <p class="heading-desc">
-          Selección de bombones finos listos para recoger en el centro de Tapalpa.
-        </p>
+    <!-- ========================================================================
+         VISTA 1: PANTALLA DE ENTRADA (3 Rutas Horizontales en Desktop)
+         ======================================================================== -->
+    <section class="app-view active" id="viewEntry">
+      <div class="view-header text-center">
+        <span class="view-kicker">EXPERIENCIA DE COMPRA</span>
+        <h2 class="view-title">¿Cómo deseas ordenar?</h2>
+        <p class="view-desc">Selecciona tu modalidad favorita para armar tu pedido</p>
       </div>
 
-      <!-- Banner Explicativo: Bandejas ya armadas -->
-      <div class="banner-callout-info">
-        <div class="callout-tag-badge">PRESENTACIÓN</div>
-        <div class="callout-content">
-          <strong>Bandejas armadas listas para degustación:</strong>
-          <span>Elaboradas con la combinación clásica de la casa. Puedes personalizar la variedad de sabores sin costo adicional o complementar con piezas a granel.</span>
-        </div>
-      </div>
-
-      <div class="trays-list-grid">
+      <div class="route-cards-stack">
         
-        <!-- Bandeja 250 g ($360 MXN) -->
-        <article class="tray-item-card">
-          <div class="tray-photo-box">
-            <img src="assets/charola_chica_oficial.jpg" alt="Bandeja Real Kakao 250 g" class="tray-photo tray-photo-chica">
-            <span class="pill-badge">30 PIEZAS</span>
+        <!-- Tarjeta 1: Bandeja ya armada -->
+        <article class="route-card" onclick="navigateToView('ready-trays')">
+          <div class="route-card-img-wrap skeleton-box">
+            <img src="assets/charola_mediana_oficial.jpg" alt="Bandeja ya armada" loading="lazy" onload="handleImageLoaded(this)">
+            <span class="route-badge">MÁS POPULAR</span>
           </div>
-          <div class="tray-details">
-            <div class="tray-title-row">
-              <h3 class="tray-name">Bandeja 250 g</h3>
-              <span class="tray-price">$360 <small>MXN</small></span>
+          <div class="route-card-body">
+            <div class="route-icon-title">
+              <span class="route-icon-svg">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                  <rect x="2" y="7" width="20" height="5"></rect>
+                  <line x1="12" y1="22" x2="12" y2="7"></line>
+                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                  <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                </svg>
+              </span>
+              <h3 class="route-title">Bandeja ya armada</h3>
             </div>
-            <p class="tray-subtitle">30 piezas · Degustación individual o en pareja</p>
-            
-            <div class="tray-content-breakdown">
-              <strong>Contenido incluido:</strong>
-              <ul>
-                <li>• 7 medias esferas</li>
-                <li>• 3 diamantes</li>
-                <li>• 10 mendiants</li>
-                <li>• 5 nidos crujientes</li>
-                <li>• Chocolate en rama</li>
-              </ul>
+            <p class="route-subtitle">Elige tamaño, listo</p>
+            <div class="route-action-indicator">
+              <span>Ver colección</span>
+              <span class="route-arrow">→</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tarjeta 2: Arma tu propia bandeja -->
+        <article class="route-card" onclick="navigateToView('custom-wizard')">
+          <div class="route-card-img-wrap skeleton-box">
+            <img src="assets/degustacion_completa.jpg" alt="Arma tu propia bandeja" loading="lazy" onload="handleImageLoaded(this)">
+            <span class="route-badge gold-badge">100% PERSONALIZABLE</span>
+          </div>
+          <div class="route-card-body">
+            <div class="route-icon-title">
+              <span class="route-icon-svg">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </span>
+              <h3 class="route-title">Arma tu propia bandeja</h3>
+            </div>
+            <p class="route-subtitle">Tú eliges los sabores</p>
+            <div class="route-action-indicator">
+              <span>Personalizar pieza a pieza</span>
+              <span class="route-arrow">→</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tarjeta 3: A granel -->
+        <article class="route-card" onclick="navigateToView('bulk')">
+          <div class="route-card-img-wrap skeleton-box">
+            <img src="assets/granel_cover.jpg" alt="Chocolate a granel" loading="lazy" onload="handleImageLoaded(this)">
+            <span class="route-badge blue-badge">POR GRAMAJE</span>
+          </div>
+          <div class="route-card-body">
+            <div class="route-icon-title">
+              <span class="route-icon-svg">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 3v18"></path>
+                  <path d="M18 3v18"></path>
+                  <rect x="3" y="7" width="6" height="4"></rect>
+                  <rect x="15" y="7" width="6" height="4"></rect>
+                  <line x1="2" y1="3" x2="22" y2="3"></line>
+                </svg>
+              </span>
+              <h3 class="route-title">A granel</h3>
+            </div>
+            <p class="route-subtitle">Mínimo 250 g</p>
+            <div class="route-action-indicator">
+              <span>Elegir chocolates sueltos</span>
+              <span class="route-arrow">→</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Banner / Callout Destacado de Pedidos Especiales -->
+      <aside class="special-orders-callout">
+        <div class="special-orders-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+          </svg>
+        </div>
+        <div class="special-orders-text">
+          <span class="special-orders-badge">PEDIDOS ESPECIALES & EVENTOS</span>
+          <h4 class="special-orders-title">¿Requieres un pedido corporativo, bodas o personalización especial?</h4>
+          <p class="special-orders-sub">Cotiza directamente con nosotros por WhatsApp para fechas y gramajes especiales en Tapalpa.</p>
+        </div>
+        <a href="https://wa.me/523411168235?text=Hola%20KAKAO%2C%20quisiera%20cotizar%20un%20pedido%20especial%20para%20Tapalpa" target="_blank" rel="noopener" class="btn-special-orders-cta">
+          <span>Cotizar por WhatsApp</span>
+          <span class="cta-arrow">→</span>
+        </a>
+      </aside>
+    </section>
+
+
+    <!-- ========================================================================
+         VISTA 2: FLUJO "BANDEJA YA ARMADA" (3 Bandejas lado a lado)
+         ======================================================================== -->
+    <section class="app-view" id="viewReadyTrays">
+      <div class="view-nav-header">
+        <button type="button" class="btn-back-route" onclick="navigateToView('entry')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>Volver a opciones</span>
+        </button>
+      </div>
+
+      <div class="view-header text-center">
+        <span class="view-kicker">COLECCIÓN ARTESANAL DE LA CASA</span>
+        <h2 class="view-title">Bandejas ya armadas</h2>
+        <p class="view-desc">Selecciona tu tamaño favorito con la combinación clásica</p>
+      </div>
+
+      <div class="ready-trays-grid">
+
+        <!-- Bandeja 250 g -->
+        <article class="ready-tray-card" id="card_tray_b250g">
+          <div class="ready-tray-photo-container skeleton-box">
+            <img src="assets/charola_chica_oficial.jpg" alt="Bandeja 250 g" loading="lazy" onload="handleImageLoaded(this)">
+            <span class="tray-photo-pill">30 PIEZAS</span>
+          </div>
+          <div class="ready-tray-info">
+            <div class="ready-tray-top-row">
+              <h3 class="ready-tray-title">Bandeja 250 g</h3>
+              <div class="ready-tray-price">$360 <small>MXN</small></div>
+            </div>
+            <p class="ready-tray-sub">30 piezas · Degustación individual o en pareja</p>
+
+            <div class="ready-tray-breakdown">
+              <strong>Contenido:</strong> 7 medias esferas · 3 diamantes · 10 mendiants · 5 nidos · chocolate en rama
             </div>
 
-            <!-- Selector de Personalización de Sabores -->
-            <div class="tray-customizer-box">
-              <span class="customizer-label">SELECCIÓN DE SABORES (MISMO PRECIO):</span>
-              <div class="custom-select-group">
-                <label>
-                  <span>Medias Esferas:</span>
-                  <select id="custom_esferas_b250g" class="custom-select" onchange="updateTrayCustomization('b250g')">
-                    <option value="Surtido Clásico (Nutella, Maní, Dulce de Leche)" selected>Surtido Clásico (Nutella, Maní, Dulce de Leche)</option>
-                    <option value="Solo Nutella">Solo Nutella</option>
-                    <option value="Solo Crema de maní">Solo Crema de maní</option>
-                    <option value="Solo Dulce de leche">Solo Dulce de leche</option>
-                    <option value="Nutella & Dulce de leche">Nutella & Dulce de leche</option>
-                    <option value="Nutella & Crema de maní">Nutella & Crema de maní</option>
-                  </select>
-                </label>
+            <!-- Selector Compacto de Sabores con texto explícito -->
+            <div class="tray-flavor-customizer">
+              <div class="flavor-customizer-header">
+                <span class="flavor-header-title">SELECCIÓN DE SABORES</span>
+                <span class="flavor-header-badge">Mismo precio, sin costo extra</span>
+              </div>
 
-                <label>
-                  <span>Semillas en Mendiants:</span>
-                  <select id="custom_mendiants_b250g" class="custom-select" onchange="updateTrayCustomization('b250g')">
-                    <option value="Mix Clásico (Nuez, Almendra y Avellana)" selected>Mix Clásico (Nuez, Almendra y Avellana)</option>
-                    <option value="Con Nuez">Con Nuez</option>
-                    <option value="Con Almendra">Con Almendra</option>
-                    <option value="Con Avellana">Con Avellana</option>
-                  </select>
-                </label>
+              <div class="flavor-select-row">
+                <label class="flavor-field-label">Esferas:</label>
+                <select id="flavor_esferas_b250g" class="flavor-dropdown-select" onchange="updateTrayCustomization('b250g')">
+                  <option value="Surtido Clásico (Nutella, Maní, Dulce de Leche)" selected>Surtido Clásico</option>
+                  <option value="Solo Nutella">Solo Nutella</option>
+                  <option value="Solo Crema de maní">Solo Crema de maní</option>
+                  <option value="Solo Dulce de leche">Solo Dulce de leche</option>
+                </select>
+              </div>
 
-                <label>
-                  <span>Chocolate en Rama:</span>
-                  <select id="custom_rama_b250g" class="custom-select" onchange="updateTrayCustomization('b250g')">
-                    <option value="Surtido Clásico (Semi amargo, Leche, Blanco)" selected>Surtido Clásico (Semi amargo, Leche, Blanco)</option>
-                    <option value="Semi Amargo">Semi Amargo</option>
-                    <option value="Con Leche">Con Leche</option>
-                    <option value="Blanco">Blanco</option>
-                  </select>
-                </label>
+              <div class="flavor-select-row">
+                <label class="flavor-field-label">Mendiants:</label>
+                <select id="flavor_mendiants_b250g" class="flavor-dropdown-select" onchange="updateTrayCustomization('b250g')">
+                  <option value="Surtido Mixto (Nuez, Almendra, Avellana)" selected>Surtido Mixto (Nuez, Almendra, Avellana)</option>
+                  <option value="Solo Nuez">Solo Nuez</option>
+                  <option value="Solo Almendra">Solo Almendra</option>
+                  <option value="Solo Avellana">Solo Avellana</option>
+                </select>
+              </div>
+
+              <div class="flavor-select-row">
+                <label class="flavor-field-label">Rama:</label>
+                <select id="flavor_rama_b250g" class="flavor-dropdown-select" onchange="updateTrayCustomization('b250g')">
+                  <option value="Surtido Clásico (Semi amargo, Leche, Blanco)" selected>Surtido Clásico</option>
+                  <option value="Semi Amargo">Semi Amargo</option>
+                  <option value="Con Leche">Con Leche</option>
+                  <option value="Blanco">Blanco</option>
+                </select>
               </div>
             </div>
 
-            <div class="tray-card-action">
-              <div class="qty-counter-row">
-                <button type="button" class="btn-qty-mod" onclick="adjustTrayQty('b250g', -1)" aria-label="Restar">−</button>
-                <span class="qty-number" id="qty_b250g">1</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustTrayQty('b250g', 1)" aria-label="Sumar">+</button>
+            <!-- Acciones -->
+            <div class="tray-action-footer">
+              <div class="stepper-box">
+                <button type="button" class="btn-stepper" onclick="adjustTrayQty('b250g', -1)" aria-label="Restar">−</button>
+                <input type="number" min="0" max="99" class="stepper-val-input" id="qty_b250g" value="0" onchange="setTrayQtyDirect('b250g', this.value)" oninput="setTrayQtyDirect('b250g', this.value)" aria-label="Cantidad">
+                <button type="button" class="btn-stepper" onclick="adjustTrayQty('b250g', 1)" aria-label="Sumar">+</button>
               </div>
-              <button type="button" class="btn-add-direct" id="btnAdd_b250g" onclick="adjustTrayQty('b250g', 1)">
-                ✓ 1 en pedido
+              <button type="button" class="btn-tray-add" id="btnAdd_b250g" onclick="adjustTrayQty('b250g', 1)">
+                <span>Agregar al pedido</span>
               </button>
             </div>
           </div>
         </article>
 
-        <!-- Bandeja 500 g ($660 MXN) -->
-        <article class="tray-item-card featured-tray-card">
-          <div class="featured-tag-badge">SELECCIÓN DISTINTIVA</div>
-          <div class="tray-photo-box">
-            <img src="assets/charola_mediana_oficial.jpg" alt="Bandeja Real Kakao 500 g" class="tray-photo tray-photo-mediana">
-            <span class="pill-badge gold-pill">55–60 PIEZAS</span>
+        <!-- Bandeja 500 g -->
+        <article class="ready-tray-card featured" id="card_tray_b500g">
+          <div class="ready-tray-photo-container skeleton-box">
+            <img src="assets/charola_mediana_oficial.jpg" alt="Bandeja 500 g" loading="lazy" onload="handleImageLoaded(this)">
+            <span class="tray-photo-pill gold-pill">55–60 PIEZAS</span>
           </div>
-          <div class="tray-details">
-            <div class="tray-title-row">
-              <h3 class="tray-name">Bandeja 500 g</h3>
-              <span class="tray-price">$660 <small>MXN</small></span>
+          <div class="ready-tray-info">
+            <div class="ready-tray-top-row">
+              <h3 class="ready-tray-title">Bandeja 500 g</h3>
+              <div class="ready-tray-price">$660 <small>MXN</small></div>
             </div>
-            <p class="tray-subtitle">55–60 piezas · Familias y reuniones</p>
-            
-            <div class="tray-content-breakdown">
-              <strong>Contenido incluido:</strong>
-              <ul>
-                <li>• 15 medias esferas</li>
-                <li>• 5 diamantes</li>
-                <li>• 21 mendiants</li>
-                <li>• 10 nidos crujientes</li>
-                <li>• Chocolate en rama</li>
-              </ul>
+            <p class="ready-tray-sub">55–60 piezas · Ideal para compartir y reuniones</p>
+
+            <div class="ready-tray-breakdown">
+              <strong>Contenido:</strong> 15 medias esferas · 5 diamantes · 21 mendiants · 10 nidos · rama
             </div>
 
-            <!-- Selector de Personalización de Sabores -->
-            <div class="tray-customizer-box">
-              <span class="customizer-label">SELECCIÓN DE SABORES (MISMO PRECIO):</span>
-              <div class="custom-select-group">
-                <label>
-                  <span>Medias Esferas:</span>
-                  <select id="custom_esferas_b500g" class="custom-select" onchange="updateTrayCustomization('b500g')">
-                    <option value="Surtido Clásico (Nutella, Maní, Dulce de Leche)" selected>Surtido Clásico (Nutella, Maní, Dulce de Leche)</option>
-                    <option value="Solo Nutella">Solo Nutella</option>
-                    <option value="Solo Crema de maní">Solo Crema de maní</option>
-                    <option value="Solo Dulce de leche">Solo Dulce de leche</option>
-                    <option value="Nutella & Dulce de leche">Nutella & Dulce de leche</option>
-                    <option value="Nutella & Crema de maní">Nutella & Crema de maní</option>
-                  </select>
-                </label>
+            <!-- Selector Compacto de Sabores con texto explícito -->
+            <div class="tray-flavor-customizer">
+              <div class="flavor-customizer-header">
+                <span class="flavor-header-title">SELECCIÓN DE SABORES</span>
+                <span class="flavor-header-badge">Mismo precio, sin costo extra</span>
+              </div>
 
-                <label>
-                  <span>Semillas en Mendiants:</span>
-                  <select id="custom_mendiants_b500g" class="custom-select" onchange="updateTrayCustomization('b500g')">
-                    <option value="Mix Clásico (Nuez, Almendra y Avellana)" selected>Mix Clásico (Nuez, Almendra y Avellana)</option>
-                    <option value="Con Nuez">Con Nuez</option>
-                    <option value="Con Almendra">Con Almendra</option>
-                    <option value="Con Avellana">Con Avellana</option>
-                  </select>
-                </label>
+              <div class="flavor-select-row">
+                <label class="flavor-field-label">Esferas:</label>
+                <select id="flavor_esferas_b500g" class="flavor-dropdown-select" onchange="updateTrayCustomization('b500g')">
+                  <option value="Surtido Clásico (Nutella, Maní, Dulce de Leche)" selected>Surtido Clásico</option>
+                  <option value="Solo Nutella">Solo Nutella</option>
+                  <option value="Solo Crema de maní">Solo Crema de maní</option>
+                  <option value="Solo Dulce de leche">Solo Dulce de leche</option>
+                </select>
+              </div>
 
-                <label>
-                  <span>Chocolate en Rama:</span>
-                  <select id="custom_rama_b500g" class="custom-select" onchange="updateTrayCustomization('b500g')">
-                    <option value="Surtido Clásico (Semi amargo, Leche, Blanco)" selected>Surtido Clásico (Semi amargo, Leche, Blanco)</option>
-                    <option value="Semi Amargo">Semi Amargo</option>
-                    <option value="Con Leche">Con Leche</option>
-                    <option value="Blanco">Blanco</option>
-                  </select>
-                </label>
+              <div class="flavor-select-row">
+                <label class="flavor-field-label">Mendiants:</label>
+                <select id="flavor_mendiants_b500g" class="flavor-dropdown-select" onchange="updateTrayCustomization('b500g')">
+                  <option value="Surtido Mixto (Nuez, Almendra, Avellana)" selected>Surtido Mixto (Nuez, Almendra, Avellana)</option>
+                  <option value="Solo Nuez">Solo Nuez</option>
+                  <option value="Solo Almendra">Solo Almendra</option>
+                  <option value="Solo Avellana">Solo Avellana</option>
+                </select>
+              </div>
+
+              <div class="flavor-select-row">
+                <label class="flavor-field-label">Rama:</label>
+                <select id="flavor_rama_b500g" class="flavor-dropdown-select" onchange="updateTrayCustomization('b500g')">
+                  <option value="Surtido Clásico (Semi amargo, Leche, Blanco)" selected>Surtido Clásico</option>
+                  <option value="Semi Amargo">Semi Amargo</option>
+                  <option value="Con Leche">Con Leche</option>
+                  <option value="Blanco">Blanco</option>
+                </select>
               </div>
             </div>
 
-            <div class="tray-card-action">
-              <div class="qty-counter-row">
-                <button type="button" class="btn-qty-mod" onclick="adjustTrayQty('b500g', -1)" aria-label="Restar">−</button>
-                <span class="qty-number" id="qty_b500g">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustTrayQty('b500g', 1)" aria-label="Sumar">+</button>
+            <!-- Acciones -->
+            <div class="tray-action-footer">
+              <div class="stepper-box">
+                <button type="button" class="btn-stepper" onclick="adjustTrayQty('b500g', -1)" aria-label="Restar">−</button>
+                <input type="number" min="0" max="99" class="stepper-val-input" id="qty_b500g" value="0" onchange="setTrayQtyDirect('b500g', this.value)" oninput="setTrayQtyDirect('b500g', this.value)" aria-label="Cantidad">
+                <button type="button" class="btn-stepper" onclick="adjustTrayQty('b500g', 1)" aria-label="Sumar">+</button>
               </div>
-              <button type="button" class="btn-add-direct" id="btnAdd_b500g" onclick="adjustTrayQty('b500g', 1)">
-                + Agregar ($660)
+              <button type="button" class="btn-tray-add" id="btnAdd_b500g" onclick="adjustTrayQty('b500g', 1)">
+                <span>Agregar al pedido</span>
               </button>
             </div>
           </div>
         </article>
 
-        <!-- Bandeja 1 kg ($1,290 MXN) -->
-        <article class="tray-item-card">
-          <div class="tray-photo-box">
-            <img src="assets/charola_grande_oficial.jpg" alt="Bandeja Real Kakao 1 kg" class="tray-photo tray-photo-grande">
-            <span class="pill-badge">140 PIEZAS</span>
+        <!-- Bandeja 1 kg -->
+        <article class="ready-tray-card" id="card_tray_b1kg">
+          <div class="ready-tray-photo-container skeleton-box">
+            <img src="assets/charola_grande_oficial.jpg" alt="Bandeja 1 kg" loading="lazy" onload="handleImageLoaded(this)">
+            <span class="tray-photo-pill blue-pill">140 PIEZAS</span>
           </div>
-          <div class="tray-details">
-            <div class="tray-title-row">
-              <h3 class="tray-name">Bandeja 1 kg</h3>
-              <span class="tray-price">$1,290 <small>MXN</small></span>
+          <div class="ready-tray-info">
+            <div class="ready-tray-top-row">
+              <h3 class="ready-tray-title">Bandeja 1 kg</h3>
+              <div class="ready-tray-price">$1,290 <small>MXN</small></div>
             </div>
-            <p class="tray-subtitle">140 piezas · Rinde ~40 personas (Eventos)</p>
-            
-            <div class="tray-content-breakdown">
-              <strong>Contenido incluido:</strong>
-              <ul>
-                <li>• 30 medias esferas</li>
-                <li>• 10 diamantes</li>
-                <li>• 42 mendiants</li>
-                <li>• 20 nidos crujientes</li>
-                <li>• Chocolate en rama</li>
-              </ul>
+            <p class="ready-tray-sub">140 piezas · Rinde ~40 personas para celebraciones</p>
+
+            <div class="ready-tray-breakdown">
+              <strong>Contenido:</strong> 30 medias esferas · 10 diamantes · 42 mendiants · 20 nidos · rama
             </div>
 
-            <!-- Selector de Personalización de Sabores -->
-            <div class="tray-customizer-box">
-              <span class="customizer-label">SELECCIÓN DE SABORES (MISMO PRECIO):</span>
-              <div class="custom-select-group">
-                <label>
-                  <span>Medias Esferas:</span>
-                  <select id="custom_esferas_b1kg" class="custom-select" onchange="updateTrayCustomization('b1kg')">
-                    <option value="Surtido Clásico (Nutella, Maní, Dulce de Leche)" selected>Surtido Clásico (Nutella, Maní, Dulce de Leche)</option>
-                    <option value="Solo Nutella">Solo Nutella</option>
-                    <option value="Solo Crema de maní">Solo Crema de maní</option>
-                    <option value="Solo Dulce de leche">Solo Dulce de leche</option>
-                    <option value="Nutella & Dulce de leche">Nutella & Dulce de leche</option>
-                    <option value="Nutella & Crema de maní">Nutella & Crema de maní</option>
-                  </select>
-                </label>
+            <!-- Selector Compacto de Sabores con texto explícito -->
+            <div class="tray-flavor-customizer">
+              <div class="flavor-customizer-header">
+                <span class="flavor-header-title">SELECCIÓN DE SABORES</span>
+                <span class="flavor-header-badge">Mismo precio, sin costo extra</span>
+              </div>
 
-                <label>
-                  <span>Semillas en Mendiants:</span>
-                  <select id="custom_mendiants_b1kg" class="custom-select" onchange="updateTrayCustomization('b1kg')">
-                    <option value="Mix Clásico (Nuez, Almendra y Avellana)" selected>Mix Clásico (Nuez, Almendra y Avellana)</option>
-                    <option value="Con Nuez">Con Nuez</option>
-                    <option value="Con Almendra">Con Almendra</option>
-                    <option value="Con Avellana">Con Avellana</option>
-                  </select>
-                </label>
+              <div class="flavor-select-row">
+                <label class="flavor-field-label">Esferas:</label>
+                <select id="flavor_esferas_b1kg" class="flavor-dropdown-select" onchange="updateTrayCustomization('b1kg')">
+                  <option value="Surtido Clásico (Nutella, Maní, Dulce de Leche)" selected>Surtido Clásico</option>
+                  <option value="Solo Nutella">Solo Nutella</option>
+                  <option value="Solo Crema de maní">Solo Crema de maní</option>
+                  <option value="Solo Dulce de leche">Solo Dulce de leche</option>
+                </select>
+              </div>
 
-                <label>
-                  <span>Chocolate en Rama:</span>
-                  <select id="custom_rama_b1kg" class="custom-select" onchange="updateTrayCustomization('b1kg')">
-                    <option value="Surtido Clásico (Semi amargo, Leche, Blanco)" selected>Surtido Clásico (Semi amargo, Leche, Blanco)</option>
-                    <option value="Semi Amargo">Semi Amargo</option>
-                    <option value="Con Leche">Con Leche</option>
-                    <option value="Blanco">Blanco</option>
-                  </select>
-                </label>
+              <div class="flavor-select-row">
+                <label class="flavor-field-label">Mendiants:</label>
+                <select id="flavor_mendiants_b1kg" class="flavor-dropdown-select" onchange="updateTrayCustomization('b1kg')">
+                  <option value="Surtido Mixto (Nuez, Almendra, Avellana)" selected>Surtido Mixto (Nuez, Almendra, Avellana)</option>
+                  <option value="Solo Nuez">Solo Nuez</option>
+                  <option value="Solo Almendra">Solo Almendra</option>
+                  <option value="Solo Avellana">Solo Avellana</option>
+                </select>
+              </div>
+
+              <div class="flavor-select-row">
+                <label class="flavor-field-label">Rama:</label>
+                <select id="flavor_rama_b1kg" class="flavor-dropdown-select" onchange="updateTrayCustomization('b1kg')">
+                  <option value="Surtido Clásico (Semi amargo, Leche, Blanco)" selected>Surtido Clásico</option>
+                  <option value="Semi Amargo">Semi Amargo</option>
+                  <option value="Con Leche">Con Leche</option>
+                  <option value="Blanco">Blanco</option>
+                </select>
               </div>
             </div>
 
-            <div class="tray-card-action">
-              <div class="qty-counter-row">
-                <button type="button" class="btn-qty-mod" onclick="adjustTrayQty('b1kg', -1)" aria-label="Restar">−</button>
-                <span class="qty-number" id="qty_b1kg">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustTrayQty('b1kg', 1)" aria-label="Sumar">+</button>
+            <!-- Acciones -->
+            <div class="tray-action-footer">
+              <div class="stepper-box">
+                <button type="button" class="btn-stepper" onclick="adjustTrayQty('b1kg', -1)" aria-label="Restar">−</button>
+                <input type="number" min="0" max="99" class="stepper-val-input" id="qty_b1kg" value="0" onchange="setTrayQtyDirect('b1kg', this.value)" oninput="setTrayQtyDirect('b1kg', this.value)" aria-label="Cantidad">
+                <button type="button" class="btn-stepper" onclick="adjustTrayQty('b1kg', 1)" aria-label="Sumar">+</button>
               </div>
-              <button type="button" class="btn-add-direct" id="btnAdd_b1kg" onclick="adjustTrayQty('b1kg', 1)">
-                + Agregar ($1,290)
+              <button type="button" class="btn-tray-add" id="btnAdd_b1kg" onclick="adjustTrayQty('b1kg', 1)">
+                <span>Agregar al pedido</span>
               </button>
             </div>
           </div>
@@ -333,681 +453,368 @@
       </div>
     </section>
 
-    <!-- Sección Extra: Charola 100% Personalizada (Arma a tu gusto paso a paso) -->
-    <section class="section-block custom-tray-builder-section" id="personalizada">
-      <div class="section-title-wrap text-center">
-        <span class="sub-kicker">EDICIÓN EXCLUSIVA · CONFECCIÓN A MEDIDA</span>
-        <h2 class="main-heading">Charola 100% Personalizada</h2>
-        <p class="heading-desc">
-          Arma tu selección pieza por pieza. Elige el formato base, define las cantidades y el cálculo se actualiza en tiempo real.
-        </p>
+
+    <!-- ========================================================================
+         VISTA 3: FLUJO "ARMA TU PROPIA BANDEJA" (Wizard 3 Pasos)
+         ======================================================================== -->
+    <section class="app-view" id="viewCustomWizard">
+      <div class="view-nav-header">
+        <button type="button" class="btn-back-route" onclick="navigateToView('entry')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>Volver a opciones</span>
+        </button>
       </div>
 
-      <!-- Barra de Pasos del Asistente -->
-      <div class="wizard-steps-nav">
-        <div class="wizard-step-item active" id="wizNav_1" onclick="goToBuilderStep(1)">
-          <span class="w-step-circle">I</span>
-          <div class="w-step-text">
-            <strong>TAMAÑO</strong>
-            <small>Capacidad base</small>
-          </div>
+      <!-- Indicador de Progreso del Wizard (Siempre visible arriba) -->
+      <div class="wizard-progress-bar">
+        <div class="wizard-step-node active" id="wizardNode1" onclick="setWizardStep(1)">
+          <div class="step-circle">1</div>
+          <span class="step-title">Tamaño</span>
         </div>
-        <div class="wizard-step-divider"></div>
-        <div class="wizard-step-item" id="wizNav_2" onclick="goToBuilderStep(2)">
-          <span class="w-step-circle">II</span>
-          <div class="w-step-text">
-            <strong>CONTENIDO</strong>
-            <small>Selección de piezas</small>
-          </div>
+        <div class="wizard-step-line" id="wizardLine1"></div>
+        <div class="wizard-step-node" id="wizardNode2" onclick="setWizardStep(2)">
+          <div class="step-circle">2</div>
+          <span class="step-title">Sabores</span>
         </div>
-        <div class="wizard-step-divider"></div>
-        <div class="wizard-step-item" id="wizNav_3" onclick="goToBuilderStep(3)">
-          <span class="w-step-circle">III</span>
-          <div class="w-step-text">
-            <strong>CONFIRMAR</strong>
-            <small>Revisar y procesar</small>
-          </div>
+        <div class="wizard-step-line" id="wizardLine2"></div>
+        <div class="wizard-step-node" id="wizardNode3" onclick="setWizardStep(3)">
+          <div class="step-circle">3</div>
+          <span class="step-title">Confirmar</span>
         </div>
       </div>
 
-      <div class="custom-builder-card">
-
-        <!-- ================= PASO 1: ELIGE EL TAMAÑO ================= -->
-        <div class="wizard-step-content" id="builderStep_1">
-          <div class="step-header">
-            <span class="step-num">I</span>
-            <div>
-              <h3 class="step-title">Paso 1: Elige el Formato de tu Charola</h3>
-              <p class="step-subtitle">Cada formato cuenta con un límite físico para garantizar una presentación impecable.</p>
-            </div>
-          </div>
-
-          <div class="tray-size-selector-grid">
-            <label class="size-choice-card active" id="sizeCard_chica">
-              <input type="radio" name="customTraySize" value="chica" checked onchange="handleCustomSizeChange('chica')">
-              <div class="size-choice-content">
-                <strong>Charola Chica</strong>
-                <span>Capacidad máxima: <strong>30 piezas</strong></span>
-                <small class="size-rec">Degustación individual o 2 personas</small>
-              </div>
-            </label>
-
-            <label class="size-choice-card" id="sizeCard_mediana">
-              <input type="radio" name="customTraySize" value="mediana" onchange="handleCustomSizeChange('mediana')">
-              <div class="size-choice-content">
-                <strong>Charola Mediana</strong>
-                <span>Capacidad máxima: <strong>60 piezas</strong></span>
-                <small class="size-rec">Ideal para familias y reuniones</small>
-              </div>
-            </label>
-
-            <label class="size-choice-card" id="sizeCard_grande">
-              <input type="radio" name="customTraySize" value="grande" onchange="handleCustomSizeChange('grande')">
-              <div class="size-choice-content">
-                <strong>Charola Grande</strong>
-                <span>Capacidad máxima: <strong>140 piezas</strong></span>
-                <small class="size-rec">Eventos y mesas de postres</small>
-              </div>
-            </label>
-          </div>
-
-          <div class="wizard-step-actions">
-            <div></div>
-            <button type="button" class="btn-wizard-next" onclick="goToBuilderStep(2)">
-              Continuar al Paso 2: Elegir Chocolates →
-            </button>
-          </div>
+      <!-- PASO 1: Selección de Tamaño Base -->
+      <div class="wizard-step-panel active" id="wizardStep1">
+        <div class="view-header text-center">
+          <span class="view-kicker">PASO 1 DE 3</span>
+          <h2 class="view-title">Elige el tamaño base</h2>
+          <p class="view-desc">Selecciona la capacidad máxima de tu charola</p>
         </div>
 
-        <!-- ================= PASO 2: SELECCIONA EL CONTENIDO ================= -->
-        <div class="wizard-step-content" id="builderStep_2" style="display: none;">
-          <div class="step-header">
-            <span class="step-num">II</span>
-            <div>
-              <h3 class="step-title">Paso 2: Selecciona tus Variedades</h3>
-              <p class="step-subtitle">Ajusta las cantidades con los selectores respetando el cupo del formato elegido.</p>
+        <div class="wizard-sizes-grid">
+          <!-- Charola Chica -->
+          <div class="wizard-size-card selected" id="wSize_chica" onclick="selectCustomSize('chica')">
+            <div class="size-card-check">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div class="size-card-photo skeleton-box">
+              <img src="assets/charola_chica_oficial.jpg" alt="Charola Chica" loading="lazy" onload="handleImageLoaded(this)">
+            </div>
+            <div class="size-card-info">
+              <h3 class="size-card-title">Charola Chica</h3>
+              <div class="size-card-capacity">Capacidad: <strong>30 piezas</strong></div>
             </div>
           </div>
 
-          <!-- Medidor de Capacidad en Vivo -->
-          <div class="capacity-meter-box">
-            <div class="capacity-meter-header">
-              <div class="cap-title-wrap">
-                <span class="cap-tray-badge" id="capTrayBadge">Charola Chica</span>
-                <strong class="cap-count-text" id="capCountText">0 / 30 piezas</strong>
-              </div>
-              <span class="cap-status-hint" id="capStatusHint">Agrega piezas hasta completar tu charola</span>
+          <!-- Charola Mediana -->
+          <div class="wizard-size-card" id="wSize_mediana" onclick="selectCustomSize('mediana')">
+            <div class="size-card-check">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
-            <div class="capacity-progress-track">
-              <div class="capacity-progress-fill" id="capProgressFill" style="width: 0%;"></div>
+            <div class="size-card-photo skeleton-box">
+              <img src="assets/charola_mediana_oficial.jpg" alt="Charola Mediana" loading="lazy" onload="handleImageLoaded(this)">
             </div>
-          </div>
-
-          <div class="builder-items-grid">
-            <!-- Nutella -->
-            <div class="builder-item-row">
-              <div class="b-item-info">
-                <strong>Media Esfera Nutella</strong>
-                <span class="b-item-price">$19.50 c/u</span>
-              </div>
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('nutella', -1)">−</button>
-                <span class="qty-number" id="b_qty_nutella">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('nutella', 1)">+</button>
-              </div>
-            </div>
-
-            <!-- Crema de mani -->
-            <div class="builder-item-row">
-              <div class="b-item-info">
-                <strong>Media Esfera Crema de maní</strong>
-                <span class="b-item-price">$19.50 c/u</span>
-              </div>
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('crema_mani', -1)">−</button>
-                <span class="qty-number" id="b_qty_crema_mani">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('crema_mani', 1)">+</button>
-              </div>
-            </div>
-
-            <!-- Dulce de leche -->
-            <div class="builder-item-row">
-              <div class="b-item-info">
-                <strong>Media Esfera Dulce de leche</strong>
-                <span class="b-item-price">$19.50 c/u</span>
-              </div>
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('dulce_leche', -1)">−</button>
-                <span class="qty-number" id="b_qty_dulce_leche">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('dulce_leche', 1)">+</button>
-              </div>
-            </div>
-
-            <!-- Pistache Diamante -->
-            <div class="builder-item-row">
-              <div class="b-item-info">
-                <strong>Diamante Pistache</strong>
-                <span class="b-item-price">$19.50 c/u</span>
-              </div>
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('pistache', -1)">−</button>
-                <span class="qty-number" id="b_qty_pistache">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('pistache', 1)">+</button>
-              </div>
-            </div>
-
-            <!-- Mendiant frutos secos -->
-            <div class="builder-item-row">
-              <div class="b-item-info">
-                <strong>Mendiant Frutos secos</strong>
-                <span class="b-item-price">$19.50 c/u</span>
-              </div>
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('mendiant_pza', -1)">−</button>
-                <span class="qty-number" id="b_qty_mendiant_pza">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('mendiant_pza', 1)">+</button>
-              </div>
-            </div>
-
-            <!-- Nidos crujientes ($17.50) -->
-            <div class="builder-item-row">
-              <div class="b-item-info">
-                <strong>Nido Cereal Crujiente</strong>
-                <span class="b-item-price">$17.50 c/u</span>
-              </div>
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('nido_pza', -1)">−</button>
-                <span class="qty-number" id="b_qty_nido_pza">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('nido_pza', 1)">+</button>
-              </div>
-            </div>
-
-            <!-- Rama Semi amargo 50g -->
-            <div class="builder-item-row">
-              <div class="b-item-info">
-                <strong>Chocolate en Rama Semi amargo (50 g)</strong>
-                <span class="b-item-price">$60.00 / porción</span>
-              </div>
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('rama_semi_50g', -1)">−</button>
-                <span class="qty-number" id="b_qty_rama_semi_50g">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('rama_semi_50g', 1)">+</button>
-              </div>
-            </div>
-
-            <!-- Rama Con leche 50g -->
-            <div class="builder-item-row">
-              <div class="b-item-info">
-                <strong>Chocolate en Rama Con leche (50 g)</strong>
-                <span class="b-item-price">$60.00 / porción</span>
-              </div>
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('rama_leche_50g', -1)">−</button>
-                <span class="qty-number" id="b_qty_rama_leche_50g">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('rama_leche_50g', 1)">+</button>
-              </div>
-            </div>
-
-            <!-- Rama Blanco 50g -->
-            <div class="builder-item-row">
-              <div class="b-item-info">
-                <strong>Chocolate en Rama Blanco (50 g)</strong>
-                <span class="b-item-price">$60.00 / porción</span>
-              </div>
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('rama_blanco_50g', -1)">−</button>
-                <span class="qty-number" id="b_qty_rama_blanco_50g">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustCustomBuilderItem('rama_blanco_50g', 1)">+</button>
-              </div>
+            <div class="size-card-info">
+              <h3 class="size-card-title">Charola Mediana</h3>
+              <div class="size-card-capacity">Capacidad: <strong>60 piezas</strong></div>
             </div>
           </div>
 
-          <!-- Barra de Estado Paso 2 -->
-          <div class="builder-footer-bar">
-            <div class="builder-live-stats">
-              <div class="stat-pill">
-                <span>Piezas:</span>
-                <strong id="customBuilderPieces">0 pzas</strong>
-              </div>
-              <div class="stat-pill total-pill">
-                <span>Subtotal:</span>
-                <strong id="customBuilderTotal">$0 MXN</strong>
-              </div>
+          <!-- Charola Grande -->
+          <div class="wizard-size-card" id="wSize_grande" onclick="selectCustomSize('grande')">
+            <div class="size-card-check">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
-
-            <div class="wizard-step-actions-inline">
-              <button type="button" class="btn-wizard-prev" onclick="goToBuilderStep(1)">
-                ← Cambiar Formato
-              </button>
-              <button type="button" class="btn-wizard-next" onclick="goToBuilderStep(3)">
-                Continuar al Paso 3: Revisar →
-              </button>
+            <div class="size-card-photo skeleton-box">
+              <img src="assets/charola_grande_oficial.jpg" alt="Charola Grande" loading="lazy" onload="handleImageLoaded(this)">
+            </div>
+            <div class="size-card-info">
+              <h3 class="size-card-title">Charola Grande</h3>
+              <div class="size-card-capacity">Capacidad: <strong>140 piezas</strong></div>
             </div>
           </div>
         </div>
 
-        <!-- ================= PASO 3: REVISAR Y PAGAR ================= -->
-        <div class="wizard-step-content" id="builderStep_3" style="display: none;">
-          <div class="step-header">
-            <span class="step-num">III</span>
-            <div>
-              <h3 class="step-title">Paso 3: Confirma tu Charola Personalizada</h3>
-              <p class="step-subtitle">Revisa el contenido armado a tu gusto antes de añadirlo a tu pedido.</p>
-            </div>
-          </div>
-
-          <div class="step-review-box">
-            <div class="review-header-row">
-              <div>
-                <h4 class="review-tray-title" id="reviewTrayTitle">Charola Chica Personalizada</h4>
-                <span class="review-tray-cap" id="reviewTrayCap">30 piezas máximo</span>
-              </div>
-              <div class="review-total-badge">
-                <span>Total Charola:</span>
-                <strong id="reviewTrayTotal">$0 MXN</strong>
-              </div>
-            </div>
-
-            <div class="review-items-list" id="reviewItemsList">
-              <!-- Se rellena dinámicamente con las piezas seleccionadas -->
-            </div>
-          </div>
-
-          <div class="wizard-step-actions">
-            <button type="button" class="btn-wizard-prev" onclick="goToBuilderStep(2)">
-              ← Modificar Contenido
-            </button>
-            <button type="button" class="btn-add-custom-tray btn-finish-custom" id="btnAddCustomTray" onclick="addCustomTrayToCart()">
-              Añadir al Pedido e Ir a Pagar →
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Sección 3: Venta de Chocolate a Granel (Compra Mínima 250 g) -->
-    <section class="section-block" id="sabores">
-      <div class="section-title-wrap text-center">
-        <span class="sub-kicker">SELECCIÓN A GRANEL · MÍNIMO 250 G</span>
-        <h2 class="main-heading">Chocolate a Granel & Especialidades</h2>
-        <p class="heading-desc">
-          Venta de chocolate suelto por pieza y porción. La compra mínima acumulada en esta sección es de <strong>250 gramos</strong>.
-        </p>
-      </div>
-
-      <!-- Banner Explicativo: Compra mínima a granel 250 g con medidor en vivo -->
-      <div class="banner-callout-info banner-callout-granel">
-        <div class="callout-tag-badge">VENTA A GRANEL</div>
-        <div class="callout-content">
-          <strong>Condición de compra mínima: 250 gramos</strong>
-          <span>Combina porciones de chocolate en rama ($60 / 50 g), nidos ($17.50 / pza), mendiants ($19.50 / pza) y bombones ($19.50 / pza) hasta alcanzar 250 g.</span>
-          <div class="granel-live-counter">
-            <span>Peso actual seleccionado a granel:</span>
-            <strong id="granelGramsDisplay">0 g / 250 g mínimo</strong>
-            <span class="granel-status-tag" id="granelStatusTag">Mínimo no alcanzado</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="flavors-gallery-grid">
-        
-        <!-- 1. Nutella ($19.50 / pza) -->
-        <div class="flavor-card">
-          <div class="flavor-img-box">
-            <img src="assets/flavor_nutella.jpg" alt="Nutella Media Esfera" class="flavor-img">
-            <span class="product-price-pill">$19.50 <small>c/u</small></span>
-          </div>
-          <div class="flavor-card-body">
-            <span class="flavor-category-tag">MEDIA ESFERA</span>
-            <h4 class="flavor-card-name">Nutella</h4>
-            <p class="flavor-card-text">Chocolate semi amargo relleno de avellanas y cacao</p>
-            
-            <div class="flavor-card-footer">
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('nutella', -1)" aria-label="Restar">−</button>
-                <span class="qty-number" id="qty_nutella">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('nutella', 1)" aria-label="Sumar">+</button>
-              </div>
-              <button type="button" class="btn-add-direct sm-btn" id="btnAdd_nutella" onclick="adjustProductQty('nutella', 1)">
-                + Agregar ($19.50)
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. Crema de maní ($19.50 / pza) -->
-        <div class="flavor-card">
-          <div class="flavor-img-box">
-            <img src="assets/flavor_crema_mani.jpg" alt="Crema de maní Media Esfera" class="flavor-img">
-            <span class="product-price-pill">$19.50 <small>c/u</small></span>
-          </div>
-          <div class="flavor-card-body">
-            <span class="flavor-category-tag">MEDIA ESFERA</span>
-            <h4 class="flavor-card-name">Crema de maní</h4>
-            <p class="flavor-card-text">Corazón cremoso de mantequilla de maní</p>
-            
-            <div class="flavor-card-footer">
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('crema_mani', -1)" aria-label="Restar">−</button>
-                <span class="qty-number" id="qty_crema_mani">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('crema_mani', 1)" aria-label="Sumar">+</button>
-              </div>
-              <button type="button" class="btn-add-direct sm-btn" id="btnAdd_crema_mani" onclick="adjustProductQty('crema_mani', 1)">
-                + Agregar ($19.50)
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. Dulce de leche ($19.50 / pza) -->
-        <div class="flavor-card">
-          <div class="flavor-img-box">
-            <img src="assets/flavor_dulce_de_leche.jpg" alt="Dulce de leche Media Esfera" class="flavor-img">
-            <span class="product-price-pill">$19.50 <small>c/u</small></span>
-          </div>
-          <div class="flavor-card-body">
-            <span class="flavor-category-tag">MEDIA ESFERA</span>
-            <h4 class="flavor-card-name">Dulce de leche</h4>
-            <p class="flavor-card-text">Relleno suave de dulce de leche artesanal</p>
-            
-            <div class="flavor-card-footer">
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('dulce_leche', -1)" aria-label="Restar">−</button>
-                <span class="qty-number" id="qty_dulce_leche">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('dulce_leche', 1)" aria-label="Sumar">+</button>
-              </div>
-              <button type="button" class="btn-add-direct sm-btn" id="btnAdd_dulce_leche" onclick="adjustProductQty('dulce_leche', 1)">
-                + Agregar ($19.50)
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. Pistache ($19.50 / pza) -->
-        <div class="flavor-card">
-          <div class="flavor-img-box">
-            <img src="assets/flavor_pistache_diamante.jpg" alt="Pistache Diamante" class="flavor-img">
-            <span class="product-price-pill">$19.50 <small>c/u</small></span>
-          </div>
-          <div class="flavor-card-body">
-            <span class="flavor-category-tag">DIAMANTE</span>
-            <h4 class="flavor-card-name">Pistache</h4>
-            <p class="flavor-card-text">Chocolate amargo con crema de pistache</p>
-            
-            <div class="flavor-card-footer">
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('pistache', -1)" aria-label="Restar">−</button>
-                <span class="qty-number" id="qty_pistache">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('pistache', 1)" aria-label="Sumar">+</button>
-              </div>
-              <button type="button" class="btn-add-direct sm-btn" id="btnAdd_pistache" onclick="adjustProductQty('pistache', 1)">
-                + Agregar ($19.50)
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 5. Mendiant Frutos Secos ($19.50 / pza) -->
-        <div class="flavor-card">
-          <div class="flavor-img-box">
-            <img src="assets/flavor_frutos_secos.jpg" alt="Mendiant Frutos secos" class="flavor-img">
-            <span class="product-price-pill">$19.50 <small>c/u</small></span>
-          </div>
-          <div class="flavor-card-body">
-            <span class="flavor-category-tag">MENDIANT PIEZA</span>
-            <h4 class="flavor-card-name">Mendiant Frutos secos</h4>
-            <p class="flavor-card-text">Chocolate amargo con nuez, almendra y avellana</p>
-            
-            <div class="flavor-card-footer">
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('mendiant_pza', -1)" aria-label="Restar">−</button>
-                <span class="qty-number" id="qty_mendiant_pza">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('mendiant_pza', 1)" aria-label="Sumar">+</button>
-              </div>
-              <button type="button" class="btn-add-direct sm-btn" id="btnAdd_mendiant_pza" onclick="adjustProductQty('mendiant_pza', 1)">
-                + Agregar ($19.50)
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6. Nidos Cereal Crujiente ($17.50 / pza) -->
-        <div class="flavor-card">
-          <div class="flavor-img-box">
-            <img src="assets/flavor_cereal_granola.jpg" alt="Cereal & granola Nido Crujiente" class="flavor-img">
-            <span class="product-price-pill">$17.50 <small>c/u</small></span>
-          </div>
-          <div class="flavor-card-body">
-            <span class="flavor-category-tag">NIDO CRUJIENTE PIEZA</span>
-            <h4 class="flavor-card-name">Nido Cereal Crujiente</h4>
-            <p class="flavor-card-text">Arroz, maíz, granola y avena bañados en chocolate</p>
-            
-            <div class="flavor-card-footer">
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('nido_pza', -1)" aria-label="Restar">−</button>
-                <span class="qty-number" id="qty_nido_pza">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('nido_pza', 1)" aria-label="Sumar">+</button>
-              </div>
-              <button type="button" class="btn-add-direct sm-btn" id="btnAdd_nido_pza" onclick="adjustProductQty('nido_pza', 1)">
-                + Agregar ($17.50)
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 7. Rama Semi amargo (Porción 50 g - $60) -->
-        <div class="flavor-card">
-          <div class="flavor-img-box">
-            <img src="assets/flavor_rama_semi_amargo.jpg" alt="Chocolate en Rama Semi amargo 50 g" class="flavor-img">
-            <span class="product-price-pill gold-pill">$60 <small>/ 50 g</small></span>
-          </div>
-          <div class="flavor-card-body">
-            <span class="flavor-category-tag">CHOCOLATE EN RAMA · 50 G</span>
-            <h4 class="flavor-card-name">Semi amargo (50 g)</h4>
-            <p class="flavor-card-text">Porción de 50 g de virutas finas de chocolate semi amargo</p>
-            
-            <div class="flavor-card-footer">
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('rama_semi_50g', -1)" aria-label="Restar">−</button>
-                <span class="qty-number" id="qty_rama_semi_50g">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('rama_semi_50g', 1)" aria-label="Sumar">+</button>
-              </div>
-              <button type="button" class="btn-add-direct sm-btn" id="btnAdd_rama_semi_50g" onclick="adjustProductQty('rama_semi_50g', 1)">
-                + Agregar ($60)
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 8. Rama Con leche (Porción 50 g - $60) -->
-        <div class="flavor-card">
-          <div class="flavor-img-box">
-            <img src="assets/flavor_rama_con_leche.jpg" alt="Chocolate en Rama Con leche 50 g" class="flavor-img">
-            <span class="product-price-pill gold-pill">$60 <small>/ 50 g</small></span>
-          </div>
-          <div class="flavor-card-body">
-            <span class="flavor-category-tag">CHOCOLATE EN RAMA · 50 G</span>
-            <h4 class="flavor-card-name">Con leche (50 g)</h4>
-            <p class="flavor-card-text">Porción de 50 g de virutas finas de chocolate con leche</p>
-            
-            <div class="flavor-card-footer">
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('rama_leche_50g', -1)" aria-label="Restar">−</button>
-                <span class="qty-number" id="qty_rama_leche_50g">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('rama_leche_50g', 1)" aria-label="Sumar">+</button>
-              </div>
-              <button type="button" class="btn-add-direct sm-btn" id="btnAdd_rama_leche_50g" onclick="adjustProductQty('rama_leche_50g', 1)">
-                + Agregar ($60)
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 9. Rama Blanco (Porción 50 g - $60) -->
-        <div class="flavor-card">
-          <div class="flavor-img-box">
-            <img src="assets/flavor_rama_blanco.jpg" alt="Chocolate en Rama Blanco 50 g" class="flavor-img">
-            <span class="product-price-pill gold-pill">$60 <small>/ 50 g</small></span>
-          </div>
-          <div class="flavor-card-body">
-            <span class="flavor-category-tag">CHOCOLATE EN RAMA · 50 G</span>
-            <h4 class="flavor-card-name">Blanco (50 g)</h4>
-            <p class="flavor-card-text">Porción de 50 g de virutas finas de chocolate blanco</p>
-            
-            <div class="flavor-card-footer">
-              <div class="qty-counter-row sm-counter">
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('rama_blanco_50g', -1)" aria-label="Restar">−</button>
-                <span class="qty-number" id="qty_rama_blanco_50g">0</span>
-                <button type="button" class="btn-qty-mod" onclick="adjustProductQty('rama_blanco_50g', 1)" aria-label="Sumar">+</button>
-              </div>
-              <button type="button" class="btn-add-direct sm-btn" id="btnAdd_rama_blanco_50g" onclick="adjustProductQty('rama_blanco_50g', 1)">
-                + Agregar ($60)
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Sección 3: Pedido Rápido Minimalista (Solo Pick Up) -->
-    <section class="section-block order-checkout-box" id="pedido">
-      
-      <div class="section-title-wrap text-center">
-        <span class="sub-kicker">RECOLECCIÓN EXCLUSIVA EN TAPALPA</span>
-        <h2 class="main-heading">Confirmar Orden</h2>
-        <p class="heading-desc">
-          Pick Up en el centro de Tapalpa. Producción artesanal bajo pedido con mínimo 1 día de anticipación.
-        </p>
-      </div>
-
-      <div class="order-form-grid">
-        
-        <!-- Formulario Minimalista -->
-        <div class="order-fields-card">
-          
-          <div class="pickup-highlight-banner">
-            <div class="pickup-badge-tag">PUNTO DE ENTREGA</div>
-            <div class="pickup-badge-text">
-              <strong>Centro de Tapalpa, Jalisco</strong>
-              <span>Pick Up Gratuito · Horario a convenir</span>
-            </div>
-          </div>
-
-          <!-- Fecha y Horario de Recolección -->
-          <div class="form-row">
-            <div class="field-item">
-              <label for="orderDate" class="field-label">Fecha de Recolección:</label>
-              <input type="date" id="orderDate" class="field-control" required>
-              <small class="field-hint">Mínimo 1 día de anticipación</small>
-            </div>
-            <div class="field-item">
-              <label for="orderTime" class="field-label">Horario Preferido:</label>
-              <select id="orderTime" class="field-control" required>
-                <option value="11:00 AM - 02:00 PM">11:00 AM - 02:00 PM</option>
-                <option value="02:00 PM - 05:00 PM" selected>02:00 PM - 05:00 PM</option>
-                <option value="05:00 PM - 08:30 PM">05:00 PM - 08:30 PM</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Nombre y Teléfono -->
-          <div class="form-row">
-            <div class="field-item">
-              <label for="clientName" class="field-label">Nombre Completo:</label>
-              <input type="text" id="clientName" class="field-control" placeholder="Ej. Lucía Martínez" required>
-            </div>
-            <div class="field-item">
-              <label for="clientPhone" class="field-label">Teléfono / WhatsApp:</label>
-              <input type="tel" id="clientPhone" class="field-control" placeholder="Ej. 341 123 4567" required>
-            </div>
-          </div>
-
-          <!-- Pago Seguro en Pantalla con Mercado Pago -->
-          <div class="field-item mp-card-section">
-            <div class="mp-header-card">
-              <div class="mp-brand-title">
-                <span class="mp-tag-dot"></span>
-                <strong>Pago con Mercado Pago</strong>
-              </div>
-              <div class="mp-cards-badges">
-                <span class="mp-badge">VISA</span>
-                <span class="mp-badge">MASTERCARD</span>
-                <span class="mp-badge">AMEX</span>
-                <span class="mp-badge-secure">ENCRIPTACIÓN SSL</span>
-              </div>
-            </div>
-
-            <div class="mp-form-grid">
-              <div class="mp-field-full">
-                <label for="mpCardNumber" class="mp-label">Número de Tarjeta (Débito o Crédito):</label>
-                <div class="mp-input-icon-wrap">
-                  <input type="text" id="mpCardNumber" class="field-control mp-input" placeholder="1234 5678 9012 3456" maxlength="19" required inputmode="numeric" oninput="formatCardNumber(this)">
-                  <span class="mp-card-type-icon" id="mpCardTypeIcon">TARJETA</span>
-                </div>
-              </div>
-
-              <div class="mp-field-full">
-                <label for="mpCardHolder" class="mp-label">Nombre del Titular:</label>
-                <input type="text" id="mpCardHolder" class="field-control mp-input" placeholder="Como aparece en la tarjeta" required>
-              </div>
-
-              <div class="mp-field-half">
-                <label for="mpCardExpiry" class="mp-label">Vencimiento (MM/AA):</label>
-                <input type="text" id="mpCardExpiry" class="field-control mp-input" placeholder="MM/AA" maxlength="5" required inputmode="numeric" oninput="formatCardExpiry(this)">
-              </div>
-
-              <div class="mp-field-half">
-                <label for="mpCardCvv" class="mp-label">Código CVV / CVC:</label>
-                <input type="password" id="mpCardCvv" class="field-control mp-input" placeholder="123" maxlength="4" required inputmode="numeric">
-              </div>
-            </div>
-            
-            <div class="payment-policy-hint">
-              <span><strong>Confirmación de Entrega:</strong> Al confirmar tu pedido por WhatsApp, recibimos tu orden y confirmamos la hora de entrega en el punto seleccionado.</span>
-            </div>
-          </div>
-
-          <!-- Nota Opcional -->
-          <div class="field-item">
-            <label for="orderNotes" class="field-label">Dedicatoria o Nota Especial (Opcional):</label>
-            <input type="text" id="orderNotes" class="field-control" placeholder="Ej. 'Para regalo de aniversario' o especificaciones de entrega">
-          </div>
-
-        </div>
-
-        <!-- Resumen Minimalista y Botón WhatsApp -->
-        <div class="order-summary-card">
-          <div class="summary-header-wrap">
-            <span class="summary-kicker">DETALLE DE COMPRA</span>
-            <h3 class="summary-card-title">Resumen de Pedido</h3>
-          </div>
-          
-          <div class="summary-list" id="summaryList">
-            <p class="empty-summary-hint">Selecciona al menos una bandeja arriba (+ Agregar)</p>
-          </div>
-
-          <div class="summary-price-total">
-            <span>Total a Pagar:</span>
-            <strong id="finalTotalAmount">$360 MXN</strong>
-          </div>
-
-          <button type="button" class="btn-whatsapp-submit" id="btnSendOrderWA" onclick="sendWhatsAppOrder()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-            </svg>
-            <span>CONFIRMAR ORDEN EN WHATSAPP</span>
+        <div class="wizard-nav-actions">
+          <button type="button" class="btn-wizard-next" onclick="setWizardStep(2)">
+            <span>Siguiente: Elegir Sabores</span>
+            <span class="btn-arrow">→</span>
           </button>
         </div>
-
       </div>
 
+      <!-- PASO 2: Selección de Sabores con Límites -->
+      <div class="wizard-step-panel" id="wizardStep2">
+        <div class="view-header text-center">
+          <span class="view-kicker">PASO 2 DE 3</span>
+          <h2 class="view-title">Elige tus sabores</h2>
+          <p class="view-desc">Agrega piezas hasta completar el cupo de tu charola</p>
+        </div>
+
+        <!-- Sticky Contador de Cupo y Monto -->
+        <div class="wizard-capacity-meter-sticky" id="wizardMeterSticky">
+          <div class="capacity-meter-inner">
+            <div class="capacity-labels-row">
+              <span class="capacity-size-name" id="wizardCurrentSizeName">Charola Chica</span>
+              <span class="capacity-price-badge" id="wizardCapacityPrice">$0.00 MXN</span>
+              <span class="capacity-count-badge" id="wizardCapacityBadge">0 / 30 piezas</span>
+            </div>
+            <div class="capacity-progress-track">
+              <div class="capacity-progress-fill" id="wizardProgressFill" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lista de Productos para Seleccionar (Grandes Cuadrados) -->
+        <div class="product-cards-grid" id="wizardItemsGrid">
+          <!-- Renderizado dinámico en app.js -->
+        </div>
+
+        <div class="wizard-nav-actions two-buttons">
+          <button type="button" class="btn-wizard-prev" onclick="setWizardStep(1)">
+            <span>← Cambiar tamaño</span>
+          </button>
+          <button type="button" class="btn-wizard-next" id="btnWizardToStep3" onclick="setWizardStep(3)">
+            <span>Revisar bandeja →</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 3: Resumen y Confirmación -->
+      <div class="wizard-step-panel" id="wizardStep3">
+        <div class="view-header text-center">
+          <span class="view-kicker">PASO 3 DE 3</span>
+          <h2 class="view-title">Revisa tu bandeja</h2>
+          <p class="view-desc">Verifica la combinación antes de agregarla al pedido</p>
+        </div>
+
+        <div class="wizard-summary-card">
+          <div class="summary-card-top">
+            <div>
+              <span class="summary-pill-tag">PERSONALIZADA</span>
+              <h3 class="summary-tray-title" id="summaryCustomSizeName">Charola Chica</h3>
+            </div>
+            <div class="summary-tray-price" id="summaryCustomPrice">$0.00 MXN</div>
+          </div>
+
+          <div class="summary-custom-pieces-list" id="summaryCustomPiecesList">
+            <!-- Desglose de piezas seleccionadas -->
+          </div>
+
+          <div class="summary-card-footer">
+            <span>Total piezas: <strong id="summaryCustomTotalCount">0</strong></span>
+          </div>
+        </div>
+
+        <div class="wizard-nav-actions two-buttons">
+          <button type="button" class="btn-wizard-prev" onclick="setWizardStep(2)">
+            <span>← Modificar sabores</span>
+          </button>
+          <button type="button" class="btn-wizard-next highlight" onclick="addCustomTrayToOrder()">
+            <span>Agregar bandeja al pedido</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================================================
+         VISTA 4: FLUJO "A GRANEL" (Mínimo 250 g Sticky)
+         ======================================================================== -->
+    <section class="app-view" id="viewBulk">
+      <div class="view-nav-header">
+        <button type="button" class="btn-back-route" onclick="navigateToView('entry')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>Volver a opciones</span>
+        </button>
+      </div>
+
+      <div class="view-header text-center">
+        <span class="view-kicker">CHOCOLATE SUELTO</span>
+        <h2 class="view-title">Selección a Granel</h2>
+        <p class="view-desc">Elige tus bombones y porciones individuales</p>
+      </div>
+
+      <!-- Barra de Progreso Fija (Sticky) 250 g Mínimo -->
+      <div class="bulk-sticky-meter" id="bulkStickyMeter">
+        <div class="bulk-meter-inner">
+          <div class="bulk-meter-status">
+            <div class="bulk-meter-icon" id="bulkMeterIcon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 3v18"></path>
+                <path d="M18 3v18"></path>
+                <rect x="3" y="7" width="6" height="4"></rect>
+                <rect x="15" y="7" width="6" height="4"></rect>
+                <line x1="2" y1="3" x2="22" y2="3"></line>
+              </svg>
+            </div>
+            <div class="bulk-meter-text">
+              <strong id="bulkGramsCurrent">0 g / 250 g mínimo</strong>
+              <span id="bulkGramsHint">Faltan 250 g para cumplir el mínimo</span>
+            </div>
+            <div class="bulk-price-pill" id="bulkPriceCurrent">$0.00 MXN</div>
+          </div>
+          <div class="bulk-progress-track">
+            <div class="bulk-progress-fill" id="bulkProgressFill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid con Todas las Opciones Visibles con Fotos Grandes y Cuadradas -->
+      <div class="product-cards-grid" id="bulkProductsGrid">
+        <!-- Generado dinámicamente en app.js -->
+      </div>
+    </section>
+
+
+    <!-- ========================================================================
+         VISTA 5: CHECKOUT FINAL Y CONFIRMACIÓN DE COMPRA
+         ======================================================================== -->
+    <section class="app-view" id="viewCheckout">
+      <div class="view-nav-header">
+        <button type="button" class="btn-back-route" onclick="navigateToView('entry')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>Seguir comprando</span>
+        </button>
+      </div>
+
+      <div class="view-header text-center">
+        <span class="view-kicker">RECOLECCIÓN EN TAPALPA</span>
+        <h2 class="view-title">Finalizar Pedido</h2>
+        <p class="view-desc">Pick Up en el centro de Tapalpa · Elaboración artesanal bajo pedido</p>
+      </div>
+
+      <div class="checkout-layout-grid">
+        
+        <!-- Formulario de Datos -->
+        <div class="checkout-form-card">
+          <div class="pickup-info-banner">
+            <div class="pickup-tag">PUNTO DE ENTREGA</div>
+            <div class="pickup-details">
+              <strong>Centro de Tapalpa, Jalisco</strong>
+              <span>Pick Up Gratuito · <strong>¿Lo necesitas hoy mismo o entrega en tu cabaña?</strong> Escríbenos por <a href="https://wa.me/523411168235?text=Hola%20KAKAO%2C%20quisiera%20saber%20si%20tienen%20disponibilidad%20para%20entrega%20hoy%20mismo%20o%20en%20caba%C3%B1a" target="_blank" rel="noopener" style="color: var(--gold-warm); text-decoration: underline; font-weight: 700;">WhatsApp aquí 📲</a></span>
+            </div>
+          </div>
+
+          <div class="form-fields-stack">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="orderDate" class="form-label">Fecha de Recolección *</label>
+                <input type="date" id="orderDate" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label for="orderTime" class="form-label">Horario Preferido *</label>
+                <select id="orderTime" class="form-input" required>
+                  <option value="11:00 AM - 02:00 PM">11:00 AM - 02:00 PM</option>
+                  <option value="02:00 PM - 05:00 PM" selected>02:00 PM - 05:00 PM</option>
+                  <option value="05:00 PM - 08:30 PM">05:00 PM - 08:30 PM</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="clientName" class="form-label">Nombre Completo *</label>
+              <input type="text" id="clientName" class="form-input" placeholder="Ej. Lucía Martínez" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="clientPhone" class="form-label">WhatsApp / Teléfono *</label>
+                <input type="tel" id="clientPhone" class="form-input" placeholder="Ej. 341 123 4567" required>
+              </div>
+              <div class="form-group">
+                <label for="clientEmail" class="form-label">Correo (Para tu recibo)</label>
+                <input type="email" id="clientEmail" class="form-input" placeholder="ejemplo@correo.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="orderNotes" class="form-label">Dedicatoria o Nota Especial (Opcional)</label>
+              <input type="text" id="orderNotes" class="form-input" placeholder="Ej. Para regalo de cumpleaños">
+            </div>
+          </div>
+        </div>
+
+        <!-- Resumen de Pedido y Pasarelas -->
+        <div class="checkout-summary-card">
+          <div class="checkout-summary-header">
+            <span class="summary-kicker">DETALLE DE COMPRA</span>
+            <h3 class="summary-title">Resumen de Pedido</h3>
+          </div>
+
+          <div class="checkout-items-list" id="checkoutItemsList">
+            <!-- Desglose de carrito -->
+          </div>
+
+          <div class="checkout-total-row">
+            <span>Total a Pagar:</span>
+            <strong id="checkoutFinalTotal">$0 MXN</strong>
+          </div>
+
+          <div class="checkout-buttons-stack">
+            <!-- Botón 1: Mercado Pago -->
+            <button type="button" class="btn-checkout-mp" id="btnPayMercadoPago" onclick="processMercadoPagoPayment()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                <line x1="1" y1="10" x2="23" y2="10"></line>
+              </svg>
+              <span>PAGAR AHORA CON MERCADO PAGO</span>
+            </button>
+
+            <!-- Botón 2: WhatsApp Directo -->
+            <button type="button" class="btn-checkout-wa" id="btnSendOrderWA" onclick="sendWhatsAppOrder()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+              </svg>
+              <span>Pedir por WhatsApp (Transferencia / Efectivo)</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
     </section>
 
   </main>
 
-  <!-- Brand Outro Footer & CRM Access -->
+  <!-- ==========================================================================
+       BARRA INFERIOR FIJA PERSISTENTE "TU PEDIDO" (SOLO ACTIVA CON PRODUCTOS)
+       ========================================================================== -->
+  <div class="persistent-cart-dock" id="persistentCartDock">
+    <div class="container persistent-cart-inner">
+      <div class="dock-summary-info">
+        <span class="dock-items-count" id="dockItemsCount">0 productos</span>
+        <strong class="dock-total-price" id="dockTotalPrice">$0 MXN</strong>
+      </div>
+      <button type="button" class="btn-dock-checkout" onclick="navigateToView('checkout')">
+        <span>Tu Pedido</span>
+        <span class="dock-arrow">→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       BOTÓN FLOTANTE PERMANENTE: PEDIDOS ESPECIALES WHATSAPP (SIEMPRE VISIBLE)
+       ========================================================================== -->
+  <aside class="floating-whatsapp-badge" id="floatingWABadge">
+    <a href="https://wa.me/523411168235?text=Hola%20KAKAO%2C%20quisiera%20cotizar%20un%20pedido%20especial%20para%20Tapalpa" target="_blank" rel="noopener" class="btn-whatsapp-floating" aria-label="Pedidos especiales por WhatsApp">
+      <span class="wa-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        </svg>
+      </span>
+      <span class="wa-text-label">Pedidos Especiales por WhatsApp</span>
+    </a>
+  </aside>
+
+  <!-- ==========================================================================
+       FOOTER DE MARCA & ACCESO AL CRM
+       ========================================================================== -->
   <footer class="brand-footer">
     <div class="container text-center">
       <div class="footer-frame">
@@ -1025,7 +832,9 @@
     </div>
   </footer>
 
-  <!-- ================= MODAL PANEL CRM DE PEDIDOS ================= -->
+  <!-- ==========================================================================
+       MODAL CRM DE PEDIDOS (PROTEGIDO POR PIN)
+       ========================================================================== -->
   <div class="crm-modal-backdrop" id="crmModal" style="display: none;">
     <div class="crm-modal-card">
       <div class="crm-modal-header">
@@ -1036,32 +845,33 @@
         <button type="button" class="btn-crm-close" onclick="closeCrmModal()" aria-label="Cerrar">×</button>
       </div>
 
-      <!-- Vista de Login PIN -->
+      <!-- Vista Login PIN -->
       <div class="crm-auth-view" id="crmAuthView">
         <div class="crm-auth-box">
           <div class="crm-lock-tag">ACCESO SEGURO</div>
           <h4>Panel de Control</h4>
-          <p>Ingresa el PIN de seguridad para gestionar pedidos y cobros:</p>
+          <p>Ingresa el PIN de seguridad para gestionar pedidos:</p>
           <div class="crm-pin-input-row">
-            <input type="password" id="crmPinInput" maxlength="6" class="crm-pin-field" placeholder="PIN (ej. 1234)">
+            <input type="password" id="crmPinInput" maxlength="10" class="crm-pin-field" placeholder="Ingresa tu PIN" onkeyup="if(event.key==='Enter') checkCrmAuth()">
             <button type="button" class="btn-crm-enter" onclick="checkCrmAuth()">Ingresar</button>
           </div>
-          <small class="crm-auth-hint">PIN configurado: <strong>1234</strong></small>
         </div>
       </div>
 
-      <!-- Vista del Dashboard CRM -->
+      <!-- Vista Dashboard CRM -->
       <div class="crm-dashboard-view" id="crmDashboardView" style="display: none;">
-        
-        <!-- Métricas Principales -->
         <div class="crm-kpis-grid">
           <div class="crm-kpi-card">
             <span class="kpi-label">TOTAL PEDIDOS</span>
             <strong class="kpi-value" id="kpiTotalOrders">0</strong>
           </div>
           <div class="crm-kpi-card">
-            <span class="kpi-label">VENTAS TOTALES</span>
+            <span class="kpi-label">INGRESOS EN CUENTA</span>
             <strong class="kpi-value gold-value" id="kpiTotalRevenue">$0 MXN</strong>
+          </div>
+          <div class="crm-kpi-card">
+            <span class="kpi-label">PENDIENTES PAGO</span>
+            <strong class="kpi-value" style="color: #ff9f0a;" id="kpiAwaitingPayment">0</strong>
           </div>
           <div class="crm-kpi-card">
             <span class="kpi-label">EN PREPARACIÓN</span>
@@ -1073,7 +883,6 @@
           </div>
         </div>
 
-        <!-- Barra de Herramientas y Filtros -->
         <div class="crm-toolbar-row">
           <div class="crm-search-box">
             <input type="text" id="crmSearchInput" class="crm-search-field" placeholder="Buscar por Folio, Cliente o Teléfono..." oninput="filterCrmOrders()">
@@ -1081,40 +890,52 @@
           <div class="crm-filters-group">
             <select id="crmStatusFilter" class="crm-select-filter" onchange="filterCrmOrders()">
               <option value="ALL">Todos los estados</option>
-              <option value="PAGADO_MERCADOPAGO">Pagado con Mercado Pago</option>
-              <option value="EN_PRODUCCION">En Producción</option>
-              <option value="LISTO_PICKUP">Listo para Entrega</option>
-              <option value="ENTREGADO">Entregado</option>
+              <option value="PENDIENTE_PAGO">⏳ Pendientes de Pago (Esperando dinero)</option>
+              <option value="PAGADO_CONFIRMADO">🟢 Pago Confirmado / En Cuenta</option>
+              <option value="EN_PRODUCCION">🟣 En Preparación / Taller</option>
+              <option value="LISTO_PICKUP">📦 Listo para Entrega Pick Up</option>
+              <option value="ENTREGADO">✅ Entregado</option>
+              <option value="CANCELADO">❌ Cancelado / No Pagado</option>
             </select>
-            <button type="button" class="btn-crm-action export-btn" onclick="exportCrmOrdersCSV()">
-              Exportar CSV
-            </button>
-            <button type="button" class="btn-crm-action clear-btn" onclick="clearCrmOrdersHistory()" title="Borrar Historial">
-              Limpiar
-            </button>
+            <button type="button" class="btn-crm-action export-btn" onclick="exportCrmOrdersCSV()">Exportar CSV</button>
+            <button type="button" class="btn-crm-action clear-btn" onclick="clearCrmOrdersHistory()">Limpiar</button>
           </div>
         </div>
 
-        <!-- Tabla / Lista de Pedidos -->
         <div class="crm-orders-container" id="crmOrdersList">
           <!-- Render dinámico de pedidos -->
         </div>
-
       </div>
 
     </div>
   </div>
 
-  <!-- Floating Sticky Action Button (Mobile) -->
-  <div class="floating-quick-bar" id="floatingBar" style="display: none;">
-    <div class="floating-quick-inner">
-      <div>
-        <span class="floating-tray-count" id="floatingCount">1 Producto</span>
-        <strong class="floating-total-price" id="floatingTotal">$360 MXN</strong>
+  <!-- ==========================================================================
+       MODAL PAGO EXITOSO MERCADO PAGO
+       ========================================================================== -->
+  <div class="crm-modal-backdrop" id="paymentSuccessModal" style="display: none;">
+    <div class="crm-modal-card" style="max-width: 480px; text-align: center; padding: 36px 28px;">
+      <div style="width: 70px; height: 70px; border-radius: 50%; background: rgba(37, 211, 102, 0.15); border: 2px solid #25d366; color: #25d366; font-size: 32px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 0 25px rgba(37, 211, 102, 0.3);">
+        ✓
       </div>
-      <a href="#pedido" class="btn-floating-finish">
-        Confirmar Pedido →
-      </a>
+      <span style="font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 2.5px; color: var(--gold-warm); font-weight: 700;">MERCADO PAGO · TRANSACCIÓN CONFIRMADA</span>
+      <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: #ffffff; margin: 8px 0 14px;">¡Pago Exitoso!</h3>
+      <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">
+        Tu pago ha sido procesado y acreditado correctamente. Recibimos tu orden y te esperamos en el punto de entrega en Tapalpa Centro.
+      </p>
+      <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--gold-border); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 24px; text-align: left;">
+        <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 6px;">
+          <span style="color: var(--text-muted);">Folio de Orden:</span>
+          <strong style="color: var(--gold-light);" id="successFolio">#KAK-XXXX</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
+          <span style="color: var(--text-muted);">Estado:</span>
+          <strong style="color: #25d366;">Aprobado · Mercado Pago</strong>
+        </div>
+      </div>
+      <button type="button" class="btn-wizard-next highlight" style="width: 100%; justify-content: center;" onclick="closeSuccessModal()">
+        Entendido / Volver a la Tienda
+      </button>
     </div>
   </div>
 

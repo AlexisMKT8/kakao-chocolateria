@@ -1,6 +1,6 @@
 /**
- * KAKAO CHOCOLATERÍA · BOMBONERÍA FINA DE MONTAÑA
- * Tapalpa, Jalisco · Bandejas Armadas & Personalizables + Chocolate a Granel (Pesos Exactos)
+ * KAKAO CHOCOLATERÍA · BOMBONERÍA FINA DE MONTAÑA · TAPALPA, JALISCO
+ * Lógica de Rutas, Flujos Guiados, Wizard de 3 Pasos, Granel Sticky y Pagos
  */
 
 const KAKAO_CONFIG = {
@@ -13,21 +13,21 @@ const KAKAO_CONFIG = {
     b250g: {
       id: 'b250g',
       name: 'Bandeja Real 250 g',
-      pieces: '30 piezas',
+      pieces: 30,
       price: 360,
-      breakdown: '7 medias esferas (8g) · 3 diamantes (11g) · 10 mendiants (8g) · 5 nidos (10g) · chocolate en rama (50g)'
+      breakdown: '7 medias esferas · 3 diamantes · 10 mendiants · 5 nidos · chocolate en rama'
     },
     b500g: {
       id: 'b500g',
       name: 'Bandeja Real 500 g',
-      pieces: '55–60 piezas',
+      pieces: 60,
       price: 660,
-      breakdown: '15 medias esferas (8g) · 5 diamantes (11g) · 21 mendiants (8g) · 10 nidos (10g) · chocolate en rama (100g)'
+      breakdown: '15 medias esferas · 5 diamantes · 21 mendiants · 10 nidos · chocolate en rama'
     },
     b1kg: {
       id: 'b1kg',
       name: 'Bandeja Real 1 kg',
-      pieces: '140 piezas (Rinde ~40 personas)',
+      pieces: 140,
       price: 1290,
       breakdown: '30 medias esferas · 10 diamantes · 42 mendiants · 20 nidos · chocolate en rama'
     }
@@ -36,91 +36,121 @@ const KAKAO_CONFIG = {
     nutella: {
       id: 'nutella',
       name: 'Media Esfera Nutella',
-      unit: 'pieza (8 g)',
       weightGrams: 8,
       price: 19.50,
-      category: 'Bombón'
+      unit: '8 g / pza',
+      photo: 'assets/flavor_nutella.jpg'
     },
     crema_mani: {
       id: 'crema_mani',
       name: 'Media Esfera Crema de maní',
-      unit: 'pieza (8 g)',
       weightGrams: 8,
       price: 19.50,
-      category: 'Bombón'
+      unit: '8 g / pza',
+      photo: 'assets/flavor_crema_mani.jpg'
     },
     dulce_leche: {
       id: 'dulce_leche',
       name: 'Media Esfera Dulce de leche',
-      unit: 'pieza (8 g)',
       weightGrams: 8,
       price: 19.50,
-      category: 'Bombón'
+      unit: '8 g / pza',
+      photo: 'assets/flavor_dulce_de_leche.jpg'
     },
-    pistache: {
-      id: 'pistache',
-      name: 'Diamante Pistache',
-      unit: 'pieza (11 g)',
+    diamante: {
+      id: 'diamante',
+      name: 'Diamante Chocolate Fino',
       weightGrams: 11,
       price: 19.50,
-      category: 'Diamante'
+      unit: '11 g / pza',
+      photo: 'assets/flavor_diamante_esmeralda.jpg'
     },
-    mendiant_pza: {
-      id: 'mendiant_pza',
-      name: 'Mendiant Frutos secos',
-      unit: 'pieza (8 g)',
+    mendiant_nuez: {
+      id: 'mendiant_nuez',
+      name: 'Mendiant Nuez',
       weightGrams: 8,
       price: 19.50,
-      category: 'Mendiants'
+      unit: '8 g / pza',
+      photo: 'assets/flavor_mendiant_nuez.jpg'
+    },
+    mendiant_almendra: {
+      id: 'mendiant_almendra',
+      name: 'Mendiant Almendra',
+      weightGrams: 8,
+      price: 19.50,
+      unit: '8 g / pza',
+      photo: 'assets/flavor_frutos_secos.jpg'
+    },
+    mendiant_avellana: {
+      id: 'mendiant_avellana',
+      name: 'Mendiant Avellana',
+      weightGrams: 8,
+      price: 19.50,
+      unit: '8 g / pza',
+      photo: 'assets/flavor_mendiants_nueces.jpg'
     },
     nido_pza: {
       id: 'nido_pza',
       name: 'Nido Cereal Crujiente',
-      unit: 'pieza (10 g)',
       weightGrams: 10,
       price: 17.50,
-      category: 'Nidos'
+      unit: '10 g / pza',
+      photo: 'assets/flavor_nidos_crocantes.jpg'
     },
     rama_semi_50g: {
       id: 'rama_semi_50g',
-      name: 'Chocolate en Rama Semi amargo (50 g)',
-      unit: 'porción 50 g',
+      name: 'Rama Semi amargo',
       weightGrams: 50,
       price: 60.00,
-      category: 'Rama (50 g)'
+      unit: 'Porción 50 g',
+      photo: 'assets/flavor_rama_semi_amargo.jpg'
     },
     rama_leche_50g: {
       id: 'rama_leche_50g',
-      name: 'Chocolate en Rama Con leche (50 g)',
-      unit: 'porción 50 g',
+      name: 'Rama Con leche',
       weightGrams: 50,
       price: 60.00,
-      category: 'Rama (50 g)'
+      unit: 'Porción 50 g',
+      photo: 'assets/flavor_rama_con_leche.jpg'
     },
     rama_blanco_50g: {
       id: 'rama_blanco_50g',
-      name: 'Chocolate en Rama Blanco (50 g)',
-      unit: 'porción 50 g',
+      name: 'Rama Blanco',
       weightGrams: 50,
       price: 60.00,
-      category: 'Rama (50 g)'
+      unit: 'Porción 50 g',
+      photo: 'assets/flavor_rama_blanco.jpg'
     }
   }
 };
 
+const CUSTOM_TRAY_SIZES = {
+  chica: { name: 'Charola Chica', maxPieces: 30 },
+  mediana: { name: 'Charola Mediana', maxPieces: 60 },
+  grande: { name: 'Charola Grande', maxPieces: 140 }
+};
+
+// Estado Global del Carrito
 let cartState = {
   trays: {
-    b250g: 1, // 1 bandeja chica agregada por defecto
+    b250g: 0,
     b500g: 0,
     b1kg: 0
   },
-  customTrays: [], // Charolas 100% Personalizadas armadas pieza por pieza
+  trayCustomizations: {
+    b250g: { esferas: 'Surtido Clásico', mendiants: 'Surtido Mixto (Nuez, Almendra, Avellana)', rama: 'Surtido Clásico' },
+    b500g: { esferas: 'Surtido Clásico', mendiants: 'Surtido Mixto (Nuez, Almendra, Avellana)', rama: 'Surtido Clásico' },
+    b1kg: { esferas: 'Surtido Clásico', mendiants: 'Surtido Mixto (Nuez, Almendra, Avellana)', rama: 'Surtido Clásico' }
+  },
+  customTrays: [],
   products: {
     nutella: 0,
     crema_mani: 0,
     dulce_leche: 0,
-    pistache: 0,
-    mendiant_pza: 0,
+    diamante: 0,
+    mendiant_nuez: 0,
+    mendiant_almendra: 0,
+    mendiant_avellana: 0,
     nido_pza: 0,
     rama_semi_50g: 0,
     rama_leche_50g: 0,
@@ -128,34 +158,18 @@ let cartState = {
   }
 };
 
-const CUSTOM_BUILDER_ITEMS = {
-  nutella: { name: 'Media Esfera Nutella', price: 19.50, unit: 'pza' },
-  crema_mani: { name: 'Media Esfera Crema de maní', price: 19.50, unit: 'pza' },
-  dulce_leche: { name: 'Media Esfera Dulce de leche', price: 19.50, unit: 'pza' },
-  pistache: { name: 'Diamante Pistache', price: 19.50, unit: 'pza' },
-  mendiant_pza: { name: 'Mendiant Frutos secos', price: 19.50, unit: 'pza' },
-  nido_pza: { name: 'Nido Cereal Crujiente', price: 17.50, unit: 'pza' },
-  rama_semi_50g: { name: 'Chocolate en Rama Semi amargo (50 g)', price: 60.00, unit: 'porción' },
-  rama_leche_50g: { name: 'Chocolate en Rama Con leche (50 g)', price: 60.00, unit: 'porción' },
-  rama_blanco_50g: { name: 'Chocolate en Rama Blanco (50 g)', price: 60.00, unit: 'porción' }
-};
-
-const CUSTOM_TRAY_SIZES = {
-  chica: { name: 'Charola Chica', maxPieces: 30, hint: 'Capacidad máxima: 30 piezas' },
-  mediana: { name: 'Charola Mediana', maxPieces: 60, hint: 'Capacidad máxima: 60 piezas' },
-  grande: { name: 'Charola Grande', maxPieces: 140, hint: 'Capacidad máxima: 140 piezas' }
-};
-
-let currentBuilderStep = 1;
-
+// Estado del Wizard de Charola Personalizada
 let customBuilderState = {
   size: 'chica',
+  step: 1,
   items: {
     nutella: 0,
     crema_mani: 0,
     dulce_leche: 0,
-    pistache: 0,
-    mendiant_pza: 0,
+    diamante: 0,
+    mendiant_nuez: 0,
+    mendiant_almendra: 0,
+    mendiant_avellana: 0,
     nido_pza: 0,
     rama_semi_50g: 0,
     rama_leche_50g: 0,
@@ -163,1040 +177,1132 @@ let customBuilderState = {
   }
 };
 
-let trayCustomizations = {
-  b250g: {
-    esferas: 'Surtido Clásico (Nutella, Maní, Dulce de Leche)',
-    mendiants: 'Mix Clásico (Nuez, Almendra y Avellana)',
-    rama: 'Surtido Clásico (Semi amargo, Leche, Blanco)'
-  },
-  b500g: {
-    esferas: 'Surtido Clásico (Nutella, Maní, Dulce de Leche)',
-    mendiants: 'Mix Clásico (Nuez, Almendra y Avellana)',
-    rama: 'Surtido Clásico (Semi amargo, Leche, Blanco)'
-  },
-  b1kg: {
-    esferas: 'Surtido Clásico (Nutella, Maní, Dulce de Leche)',
-    mendiants: 'Mix Clásico (Nuez, Almendra y Avellana)',
-    rama: 'Surtido Clásico (Semi amargo, Leche, Blanco)'
+// Control de Skeletons de Carga de Imagen
+function handleImageLoaded(imgElement) {
+  if (imgElement && imgElement.parentElement) {
+    imgElement.parentElement.classList.add('loaded');
   }
-};
+}
 
-let hasGiftbox = false;
-
+// Inicialización al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
-  setupDateConstraints();
-  updateCustomBuilderLiveStats();
-  updateOrderDisplay();
+  setupDatePickerMin();
+  renderBulkProducts();
+  renderWizardItems();
+  updateAllCartDisplays();
+  checkUrlPaymentStatus();
 });
 
-// Restricción de fecha: mínimo mañana (+1 día de anticipación artesanal)
-function setupDateConstraints() {
-  const dateInput = document.getElementById('orderDate');
-  if (!dateInput) return;
+function goToExperience(event) {
+  if (event) event.preventDefault();
+  navigateToView('entry');
+  const appMain = document.getElementById('appMain');
+  if (appMain) {
+    appMain.scrollIntoView({ behavior: 'smooth' });
+  }
+}
 
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
+// ==========================================================================
+// ROUTER DE VISTAS (Navegación Dinámica)
+// ==========================================================================
 
-  const yyyy = tomorrow.getFullYear();
-  const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
-  const dd = String(tomorrow.getDate()).padStart(2, '0');
-  const minDate = `${yyyy}-${mm}-${dd}`;
+const VIEW_MAP = {
+  'entry': 'viewEntry',
+  'ready-trays': 'viewReadyTrays',
+  'custom-wizard': 'viewCustomWizard',
+  'bulk': 'viewBulk',
+  'checkout': 'viewCheckout'
+};
 
-  dateInput.setAttribute('min', minDate);
-  dateInput.value = minDate;
+function navigateToView(viewKey) {
+  const targetId = VIEW_MAP[viewKey] || 'viewEntry';
 
-  dateInput.addEventListener('change', (e) => {
-    const selected = new Date(e.target.value + 'T00:00:00');
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const diffDays = (selected - today) / (1000 * 60 * 60 * 24);
-
-    if (diffDays < 1) {
-      alert('Para garantizar la frescura artesanal, los pedidos se solicitan con al menos 1 día de anticipación.');
-      e.target.value = minDate;
-    }
+  document.querySelectorAll('.app-view').forEach(view => {
+    view.classList.remove('active');
   });
+
+  const targetView = document.getElementById(targetId);
+  if (targetView) {
+    targetView.classList.add('active');
+  }
+
+  // Si navega al checkout, actualizar el resumen
+  if (viewKey === 'checkout') {
+    renderCheckoutSummary();
+  }
+
+  // Scroll suave al inicio del contenedor principal
+  const appMain = document.getElementById('appMain');
+  if (appMain) {
+    const navHeight = document.getElementById('appTopNav')?.offsetHeight || 60;
+    const targetPos = appMain.getBoundingClientRect().top + window.pageYOffset - navHeight - 10;
+    window.scrollTo({ top: Math.max(0, targetPos), behavior: 'smooth' });
+  }
 }
 
-window.updateTrayCustomization = function(trayId) {
-  const selEsferas = document.getElementById(`custom_esferas_${trayId}`);
-  const selMendiants = document.getElementById(`custom_mendiants_${trayId}`);
-  const selRama = document.getElementById(`custom_rama_${trayId}`);
+// ==========================================================================
+// FLUJO 1: BANDEJAS YA ARMADAS
+// ==========================================================================
 
-  if (selEsferas) trayCustomizations[trayId].esferas = selEsferas.value;
-  if (selMendiants) trayCustomizations[trayId].mendiants = selMendiants.value;
-  if (selRama) trayCustomizations[trayId].rama = selRama.value;
+function setTrayQtyDirect(trayId, val) {
+  const parsed = Math.max(0, parseInt(val, 10) || 0);
+  cartState.trays[trayId] = parsed;
 
-  updateOrderDisplay();
-};
-
-window.goToBuilderStep = function(step) {
-  if (step === 3) {
-    let totalPieces = 0;
-    for (const qty of Object.values(customBuilderState.items)) {
-      totalPieces += qty;
-    }
-    if (totalPieces === 0) {
-      alert('Por favor agrega al menos una pieza a tu charola antes de continuar.');
-      return;
-    }
-    renderStep3Review();
+  const inputEl = document.getElementById(`qty_${trayId}`);
+  if (inputEl && document.activeElement !== inputEl) {
+    inputEl.value = parsed;
   }
 
-  currentBuilderStep = step;
-
-  for (let i = 1; i <= 3; i++) {
-    const panel = document.getElementById(`builderStep_${i}`);
-    const nav = document.getElementById(`wizNav_${i}`);
-    if (panel) {
-      panel.style.display = i === step ? 'block' : 'none';
-    }
-    if (nav) {
-      if (i === step) {
-        nav.classList.add('active');
-        nav.classList.remove('completed');
-      } else if (i < step) {
-        nav.classList.remove('active');
-        nav.classList.add('completed');
-      } else {
-        nav.classList.remove('active');
-        nav.classList.remove('completed');
-      }
-    }
-  }
-
-  const builderSection = document.getElementById('personalizada');
-  if (builderSection) {
-    builderSection.scrollIntoView({ behavior: 'smooth' });
-  }
-};
-
-function renderStep3Review() {
-  const sizeInfo = CUSTOM_TRAY_SIZES[customBuilderState.size];
-  let totalPieces = 0;
-  let totalPrice = 0;
-  let itemsHtml = '';
-
-  for (const [id, qty] of Object.entries(customBuilderState.items)) {
-    if (qty > 0) {
-      const itemConfig = CUSTOM_BUILDER_ITEMS[id];
-      const itemTotal = itemConfig.price * qty;
-      totalPieces += qty;
-      totalPrice += itemTotal;
-
-      itemsHtml += `
-        <div class="review-item-row">
-          <div class="review-item-left">
-            <span class="review-item-qty">${qty}x</span>
-            <span class="review-item-name">${itemConfig.name}</span>
-          </div>
-          <div class="review-item-right">
-            <span class="review-item-unitprice">${formatCurrency(itemConfig.price)} c/u</span>
-            <strong class="review-item-subtotal">${formatCurrency(itemTotal)}</strong>
-          </div>
-        </div>
-      `;
-    }
-  }
-
-  const titleElem = document.getElementById('reviewTrayTitle');
-  const capElem = document.getElementById('reviewTrayCap');
-  const totalElem = document.getElementById('reviewTrayTotal');
-  const listElem = document.getElementById('reviewItemsList');
-
-  if (titleElem) titleElem.textContent = `${sizeInfo.name} Personalizada`;
-  if (capElem) capElem.textContent = `${totalPieces} de ${sizeInfo.maxPieces} piezas seleccionadas`;
-  if (totalElem) totalElem.textContent = formatCurrency(totalPrice);
-  if (listElem) listElem.innerHTML = itemsHtml;
-}
-
-window.handleCustomSizeChange = function(size) {
-  customBuilderState.size = size;
-  ['chica', 'mediana', 'grande'].forEach(s => {
-    const card = document.getElementById(`sizeCard_${s}`);
-    if (card) {
-      if (s === size) card.classList.add('active');
-      else card.classList.remove('active');
-    }
-  });
-  updateCustomBuilderLiveStats();
-};
-
-window.adjustCustomBuilderItem = function(itemId, delta) {
-  const sizeInfo = CUSTOM_TRAY_SIZES[customBuilderState.size];
-  let currentTotalPieces = 0;
-  for (const qty of Object.values(customBuilderState.items)) {
-    currentTotalPieces += qty;
-  }
-
-  if (delta > 0 && currentTotalPieces >= sizeInfo.maxPieces) {
-    alert(`Capacidad máxima alcanzada. La ${sizeInfo.name} tiene un límite de ${sizeInfo.maxPieces} piezas.`);
-    return;
-  }
-
-  const current = customBuilderState.items[itemId] || 0;
-  const newQty = Math.max(0, current + delta);
-  customBuilderState.items[itemId] = newQty;
-
-  const qtyElem = document.getElementById(`b_qty_${itemId}`);
-  if (qtyElem) qtyElem.textContent = newQty;
-
-  updateCustomBuilderLiveStats();
-};
-
-function updateCustomBuilderLiveStats() {
-  const sizeInfo = CUSTOM_TRAY_SIZES[customBuilderState.size];
-  let totalPieces = 0;
-  let totalPrice = 0;
-
-  for (const [id, qty] of Object.entries(customBuilderState.items)) {
-    if (qty > 0) {
-      const itemConfig = CUSTOM_BUILDER_ITEMS[id];
-      if (!itemConfig) continue;
-      totalPieces += qty;
-      totalPrice += itemConfig.price * qty;
-    }
-  }
-
-  const piecesElem = document.getElementById('customBuilderPieces');
-  const totalElem = document.getElementById('customBuilderTotal');
-  const capBadge = document.getElementById('capTrayBadge');
-  const capCount = document.getElementById('capCountText');
-  const capProgress = document.getElementById('capProgressFill');
-  const capHint = document.getElementById('capStatusHint');
-
-  if (piecesElem) piecesElem.textContent = `${totalPieces} pzas`;
-  if (totalElem) totalElem.textContent = formatCurrency(totalPrice);
-
-  if (capBadge) capBadge.textContent = sizeInfo.name;
-  if (capCount) capCount.textContent = `${totalPieces} / ${sizeInfo.maxPieces} piezas`;
-
-  const percent = Math.min(100, Math.round((totalPieces / sizeInfo.maxPieces) * 100));
-  if (capProgress) {
-    capProgress.style.width = `${percent}%`;
-    if (totalPieces >= sizeInfo.maxPieces) {
-      capProgress.style.background = 'linear-gradient(90deg, #d4af37 0%, #25d366 100%)';
+  const btnAdd = document.getElementById(`btnAdd_${trayId}`);
+  if (btnAdd) {
+    if (parsed > 0) {
+      btnAdd.classList.add('in-cart');
+      btnAdd.innerHTML = `<span>${parsed} en pedido</span>`;
     } else {
-      capProgress.style.background = 'linear-gradient(90deg, #b8860b 0%, #f5e4b2 100%)';
+      btnAdd.classList.remove('in-cart');
+      btnAdd.innerHTML = `<span>Agregar al pedido</span>`;
     }
   }
 
-  if (capHint) {
-    if (totalPieces === 0) {
-      capHint.textContent = `Capacidad disponible: ${sizeInfo.maxPieces} piezas`;
-    } else if (totalPieces < sizeInfo.maxPieces) {
-      const remaining = sizeInfo.maxPieces - totalPieces;
-      capHint.textContent = `Faltan ${remaining} ${remaining === 1 ? 'pieza' : 'piezas'} para completar el formato`;
-    } else {
-      capHint.textContent = `Formato completo (${sizeInfo.maxPieces}/${sizeInfo.maxPieces} piezas)`;
-    }
-  }
+  updateAllCartDisplays();
 }
 
-window.addCustomTrayToCart = function() {
-  let totalPieces = 0;
-  let totalPrice = 0;
-  const itemsBreakdown = {};
-
-  for (const [id, qty] of Object.entries(customBuilderState.items)) {
-    if (qty > 0) {
-      const itemConfig = CUSTOM_BUILDER_ITEMS[id];
-      if (!itemConfig) continue;
-      totalPieces += qty;
-      totalPrice += itemConfig.price * qty;
-      itemsBreakdown[id] = {
-        name: itemConfig.name,
-        qty: qty,
-        unitPrice: itemConfig.price,
-        subtotal: itemConfig.price * qty,
-        unit: itemConfig.unit
-      };
-    }
-  }
-
-  if (totalPieces === 0) {
-    alert('Por favor agrega al menos una pieza a tu Charola Personalizada.');
-    return;
-  }
-
-  const sizeInfo = CUSTOM_TRAY_SIZES[customBuilderState.size];
-  const customTrayObj = {
-    id: 'ct_' + Date.now(),
-    size: customBuilderState.size,
-    sizeName: sizeInfo.name,
-    sizeHint: sizeInfo.hint,
-    totalPieces: totalPieces,
-    totalPrice: totalPrice,
-    items: itemsBreakdown
-  };
-
-  cartState.customTrays.push(customTrayObj);
-
-  for (const id of Object.keys(customBuilderState.items)) {
-    customBuilderState.items[id] = 0;
-    const qtyElem = document.getElementById(`b_qty_${id}`);
-    if (qtyElem) qtyElem.textContent = '0';
-  }
-  goToBuilderStep(1);
-  updateCustomBuilderLiveStats();
-
-  updateOrderDisplay();
-
-  const checkoutElem = document.getElementById('pedido');
-  if (checkoutElem) {
-    checkoutElem.scrollIntoView({ behavior: 'smooth' });
-  }
-};
-
-window.removeCustomTray = function(index) {
-  if (cartState.customTrays && cartState.customTrays[index]) {
-    cartState.customTrays.splice(index, 1);
-    updateOrderDisplay();
-  }
-};
-
-window.toggleGiftbox = function(checked) {
-  hasGiftbox = Boolean(checked);
-  const card = document.getElementById('giftboxCard');
-  if (card) {
-    if (hasGiftbox) card.classList.add('active');
-    else card.classList.remove('active');
-  }
-  updateOrderDisplay();
-};
-
-window.adjustTrayQty = function(trayId, delta) {
+function adjustTrayQty(trayId, delta) {
   const current = cartState.trays[trayId] || 0;
-  const newQty = Math.max(0, current + delta);
-  cartState.trays[trayId] = newQty;
-  updateOrderDisplay();
-};
-
-window.adjustProductQty = function(productId, delta) {
-  const current = cartState.products[productId] || 0;
-  const newQty = Math.max(0, current + delta);
-  cartState.products[productId] = newQty;
-  updateOrderDisplay();
-};
-
-let crmIsAuth = false;
-let mp = null;
-
-try {
-  if (typeof MercadoPago !== 'undefined' && KAKAO_CONFIG.mercadopago?.publicKey) {
-    mp = new MercadoPago(KAKAO_CONFIG.mercadopago.publicKey, {
-      locale: 'es-MX'
-    });
-  }
-} catch (e) {
-  console.log('Mercado Pago SDK inicializado.');
+  const updated = Math.max(0, current + delta);
+  const inputEl = document.getElementById(`qty_${trayId}`);
+  if (inputEl) inputEl.value = updated;
+  setTrayQtyDirect(trayId, updated);
 }
 
-window.formatCardNumber = function(input) {
-  let val = input.value.replace(/\D/g, '').slice(0, 16);
-  let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
-  input.value = formatted;
+function updateTrayCustomization(trayId) {
+  const esferasSelect = document.getElementById(`flavor_esferas_${trayId}`);
+  const mendiantsSelect = document.getElementById(`flavor_mendiants_${trayId}`);
+  const ramaSelect = document.getElementById(`flavor_rama_${trayId}`);
 
-  const iconElem = document.getElementById('mpCardTypeIcon');
-  if (iconElem) {
-    if (val.startsWith('4')) iconElem.textContent = 'VISA';
-    else if (val.startsWith('5') || val.startsWith('2')) iconElem.textContent = 'MASTERCARD';
-    else if (val.startsWith('3')) iconElem.textContent = 'AMEX';
-    else iconElem.textContent = 'TARJETA';
-  }
-};
+  if (esferasSelect) cartState.trayCustomizations[trayId].esferas = esferasSelect.value;
+  if (mendiantsSelect) cartState.trayCustomizations[trayId].mendiants = mendiantsSelect.value;
+  if (ramaSelect) cartState.trayCustomizations[trayId].rama = ramaSelect.value;
 
-window.formatCardExpiry = function(input) {
-  let val = input.value.replace(/\D/g, '').slice(0, 4);
-  if (val.length >= 3) {
-    input.value = val.slice(0, 2) + '/' + val.slice(2, 4);
+  if (cartState.trays[trayId] === 0) {
+    adjustTrayQty(trayId, 1);
   } else {
-    input.value = val;
+    updateAllCartDisplays();
   }
-};
-
-function formatCurrency(amount) {
-  return Number.isInteger(amount) ? `$${amount} MXN` : `$${amount.toFixed(2)} MXN`;
 }
 
-function updateOrderDisplay() {
-  let totalAmount = 0;
-  let totalItemsCount = 0;
-  const summaryList = document.getElementById('summaryList');
-  let summaryHtml = '';
+// ==========================================================================
+// FLUJO 2: WIZARD "ARMA TU PROPIA BANDEJA"
+// ==========================================================================
 
-  let traysHtml = '';
-  for (const [id, qty] of Object.entries(cartState.trays)) {
-    const tray = KAKAO_CONFIG.trays[id];
-    const qtyElem = document.getElementById(`qty_${id}`);
-    const btnAdd = document.getElementById(`btnAdd_${id}`);
-    const custom = trayCustomizations[id];
+function setWizardStep(stepNum) {
+  customBuilderState.step = stepNum;
 
-    if (qtyElem) qtyElem.textContent = qty;
-    if (btnAdd) {
-      if (qty > 0) {
-        btnAdd.textContent = `${qty} EN PEDIDO`;
-        btnAdd.style.background = '#e5c578';
-        btnAdd.style.color = '#120804';
-      } else {
-        btnAdd.textContent = `+ AGREGAR ($${tray.price})`;
-        btnAdd.style.background = '';
-        btnAdd.style.color = '';
-      }
+  // Actualizar nodos e indicadores de progreso
+  for (let i = 1; i <= 3; i++) {
+    const node = document.getElementById(`wizardNode${i}`);
+    const line = document.getElementById(`wizardLine${i}`);
+    const panel = document.getElementById(`wizardStep${i}`);
+
+    if (node) {
+      node.classList.remove('active', 'completed');
+      if (i === stepNum) node.classList.add('active');
+      else if (i < stepNum) node.classList.add('completed');
     }
 
-    if (qty > 0) {
-      const itemTotal = tray.price * qty;
-      totalAmount += itemTotal;
-      totalItemsCount += qty;
+    if (line) {
+      if (i < stepNum) line.classList.add('completed');
+      else line.classList.remove('completed');
+    }
 
-      traysHtml += `
-        <div class="summary-item-card">
-          <div class="summary-item-header">
-            <span class="summary-item-title">${tray.name} · ${tray.pieces}</span>
-            <strong class="summary-item-subtotal">$${itemTotal} MXN</strong>
-          </div>
-          <div class="summary-item-custom-tags">
-            <small>• Esferas: <em>${custom.esferas}</em></small>
-            <small>• Mendiants: <em>${custom.mendiants}</em></small>
-            <small>• Rama: <em>${custom.rama}</em></small>
-          </div>
-          <div class="summary-item-edit-bar">
-            <span class="summary-unit-price">$${tray.price} MXN c/u</span>
-            <div class="summary-qty-tools">
-              <button type="button" class="btn-summary-mod" onclick="adjustTrayQty('${id}', -1)" title="Disminuir">−</button>
-              <span class="summary-qty-digit">${qty}</span>
-              <button type="button" class="btn-summary-mod" onclick="adjustTrayQty('${id}', 1)" title="Aumentar">+</button>
-              <button type="button" class="btn-summary-del" onclick="adjustTrayQty('${id}', -${qty})" title="Quitar">×</button>
-            </div>
+    if (panel) {
+      if (i === stepNum) panel.classList.add('active');
+      else panel.classList.remove('active');
+    }
+  }
+
+  if (stepNum === 2) {
+    updateWizardCapacityMeter();
+  } else if (stepNum === 3) {
+    renderWizardSummaryStep();
+  }
+}
+
+function selectCustomSize(sizeKey) {
+  customBuilderState.size = sizeKey;
+
+  document.querySelectorAll('.wizard-size-card').forEach(card => {
+    card.classList.remove('selected');
+  });
+
+  const selectedCard = document.getElementById(`wSize_${sizeKey}`);
+  if (selectedCard) selectedCard.classList.add('selected');
+
+  updateWizardCapacityMeter();
+}
+
+function renderWizardItems() {
+  const container = document.getElementById('wizardItemsGrid');
+  if (!container) return;
+
+  let html = '';
+  Object.keys(KAKAO_CONFIG.products).forEach(prodKey => {
+    const prod = KAKAO_CONFIG.products[prodKey];
+    const qty = customBuilderState.items[prodKey] || 0;
+
+    html += `
+      <div class="product-card-vertical">
+        <div class="product-card-photo-box skeleton-box">
+          <img src="${prod.photo}" alt="${prod.name}" loading="lazy" onload="handleImageLoaded(this)">
+        </div>
+        <div class="product-card-details">
+          <h4 class="product-card-title">${prod.name}</h4>
+          <span class="product-card-unit">${prod.unit}</span>
+          <div class="product-card-price">$${prod.price.toFixed(2)} MXN</div>
+        </div>
+        <div class="product-card-stepper-wrap">
+          <div class="stepper-box">
+            <button type="button" class="btn-stepper" onclick="adjustCustomItem('${prodKey}', -1)" aria-label="Restar">−</button>
+            <input type="number" min="0" max="99" class="stepper-val-input" id="wItemQty_${prodKey}" value="${qty}" onchange="setCustomItemQtyDirect('${prodKey}', this.value)" oninput="setCustomItemQtyDirect('${prodKey}', this.value)" aria-label="Cantidad">
+            <button type="button" class="btn-stepper" onclick="adjustCustomItem('${prodKey}', 1)" aria-label="Sumar">+</button>
           </div>
         </div>
-      `;
-    }
-  }
-
-  let customTraysHtml = '';
-  if (cartState.customTrays && cartState.customTrays.length > 0) {
-    cartState.customTrays.forEach((ct, index) => {
-      totalAmount += ct.totalPrice;
-      totalItemsCount += 1;
-
-      let itemsListHtml = '';
-      for (const item of Object.values(ct.items)) {
-        itemsListHtml += `<small>• ${item.qty}x ${item.name} (${formatCurrency(item.unitPrice)} c/u = ${formatCurrency(item.subtotal)})</small>`;
-      }
-
-      customTraysHtml += `
-        <div class="summary-item-card custom-tray-summary-card">
-          <div class="summary-item-header">
-            <span class="summary-item-title">${ct.sizeName} Personalizada · ${ct.totalPieces} pzas</span>
-            <strong class="summary-item-subtotal">${formatCurrency(ct.totalPrice)}</strong>
-          </div>
-          <div class="summary-item-custom-tags">
-            ${itemsListHtml}
-          </div>
-          <div class="summary-item-edit-bar">
-            <span class="summary-unit-price">${ct.sizeHint}</span>
-            <div class="summary-qty-tools">
-              <button type="button" class="btn-summary-del" onclick="removeCustomTray(${index})" title="Eliminar Charola" style="width: auto; padding: 2px 10px; font-size: 0.8rem; border-radius: 6px;">Eliminar ×</button>
-            </div>
-          </div>
-        </div>
-      `;
-    });
-  }
-
-  let productsHtml = '';
-  for (const [id, qty] of Object.entries(cartState.products)) {
-    const prod = KAKAO_CONFIG.products[id];
-    if (!prod) continue;
-    const qtyElem = document.getElementById(`qty_${id}`);
-    const btnAdd = document.getElementById(`btnAdd_${id}`);
-
-    if (qtyElem) qtyElem.textContent = qty;
-    if (btnAdd) {
-      if (qty > 0) {
-        btnAdd.textContent = `${qty} EN PEDIDO`;
-        btnAdd.style.background = '#e5c578';
-        btnAdd.style.color = '#120804';
-      } else {
-        const pStr = Number.isInteger(prod.price) ? `$${prod.price}` : `$${prod.price.toFixed(2)}`;
-        btnAdd.textContent = `+ AGREGAR (${pStr})`;
-        btnAdd.style.background = '';
-        btnAdd.style.color = '';
-      }
-    }
-
-    if (qty > 0) {
-      const itemTotal = prod.price * qty;
-      totalAmount += itemTotal;
-      totalItemsCount += qty;
-
-      productsHtml += `
-        <div class="summary-item-card">
-          <div class="summary-item-header">
-            <span class="summary-item-title">${prod.name}</span>
-            <strong class="summary-item-subtotal">${formatCurrency(itemTotal)}</strong>
-          </div>
-          <div class="summary-item-edit-bar">
-            <span class="summary-unit-price">${formatCurrency(prod.price)} c/u (${prod.unit})</span>
-            <div class="summary-qty-tools">
-              <button type="button" class="btn-summary-mod" onclick="adjustProductQty('${id}', -1)" title="Disminuir">−</button>
-              <span class="summary-qty-digit">${qty}</span>
-              <button type="button" class="btn-summary-mod" onclick="adjustProductQty('${id}', 1)" title="Aumentar">+</button>
-              <button type="button" class="btn-summary-del" onclick="adjustProductQty('${id}', -${qty})" title="Quitar">×</button>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-  }
-
-  summaryHtml = traysHtml + customTraysHtml + productsHtml;
-
-  let totalGranelGrams = 0;
-  for (const [id, qty] of Object.entries(cartState.products)) {
-    if (qty > 0) {
-      const prod = KAKAO_CONFIG.products[id];
-      if (prod && prod.weightGrams) {
-        totalGranelGrams += prod.weightGrams * qty;
-      }
-    }
-  }
-
-  const granelDisplay = document.getElementById('granelGramsDisplay');
-  const granelTag = document.getElementById('granelStatusTag');
-
-  if (granelDisplay) {
-    granelDisplay.textContent = `${totalGranelGrams} g / 250 g mínimo`;
-  }
-  if (granelTag) {
-    if (totalGranelGrams === 0) {
-      granelTag.textContent = 'Mínimo 250 g requerido';
-      granelTag.style.background = 'rgba(255, 255, 255, 0.08)';
-      granelTag.style.color = 'var(--text-muted)';
-      granelTag.style.borderColor = 'var(--gold-border)';
-    } else if (totalGranelGrams < 250) {
-      const remaining = 250 - totalGranelGrams;
-      granelTag.textContent = `Faltan ${remaining} g para el mínimo`;
-      granelTag.style.background = 'rgba(218, 165, 32, 0.2)';
-      granelTag.style.color = 'var(--gold-warm)';
-      granelTag.style.borderColor = 'var(--gold-warm)';
-    } else {
-      granelTag.textContent = `Mínimo alcanzado (${totalGranelGrams} g)`;
-      granelTag.style.background = 'rgba(37, 211, 102, 0.2)';
-      granelTag.style.color = '#25d366';
-      granelTag.style.borderColor = '#25d366';
-    }
-  }
-
-  if (totalGranelGrams > 0) {
-    if (totalGranelGrams < 250) {
-      summaryHtml += `
-        <div class="summary-row-item summary-granel-warning">
-          <span>Selección a Granel: ${totalGranelGrams} g (Mínimo 250 g)</span>
-          <strong style="color: #e09f3e;">Faltan ${250 - totalGranelGrams} g</strong>
-        </div>
-      `;
-    } else {
-      summaryHtml += `
-        <div class="summary-row-item summary-granel-success">
-          <span>Selección a Granel: ${totalGranelGrams} g</span>
-          <strong style="color: #25d366;">Mínimo Cumplido</strong>
-        </div>
-      `;
-    }
-  }
-
-  if (totalItemsCount > 0) {
-    summaryHtml += `
-      <div class="summary-row-item summary-pickup-badge">
-        <span>Recolección: Tapalpa Centro</span>
-        <strong>GRATIS</strong>
       </div>
     `;
+  });
+
+  container.innerHTML = html;
+}
+
+function setCustomItemQtyDirect(prodKey, val) {
+  const maxLimit = CUSTOM_TRAY_SIZES[customBuilderState.size].maxPieces;
+  let parsed = Math.max(0, parseInt(val, 10) || 0);
+
+  const otherItemsTotal = Object.keys(customBuilderState.items)
+    .filter(k => k !== prodKey)
+    .reduce((sum, k) => sum + (customBuilderState.items[k] || 0), 0);
+
+  if (otherItemsTotal + parsed > maxLimit) {
+    parsed = Math.max(0, maxLimit - otherItemsTotal);
+    alert(`Se ajustó a ${parsed} para no exceder el límite de ${maxLimit} piezas.`);
   }
 
-  if (summaryList) {
-    if (totalItemsCount === 0) {
-      summaryList.innerHTML = '<p class="empty-summary-hint">Selecciona al menos una bandeja o producto arriba (+ Agregar)</p>';
-    } else {
-      summaryList.innerHTML = summaryHtml;
+  customBuilderState.items[prodKey] = parsed;
+  const inputEl = document.getElementById(`wItemQty_${prodKey}`);
+  if (inputEl && document.activeElement !== inputEl) {
+    inputEl.value = parsed;
+  }
+
+  updateWizardCapacityMeter();
+}
+
+function adjustCustomItem(prodKey, delta) {
+  const currentItemQty = customBuilderState.items[prodKey] || 0;
+  const updated = Math.max(0, currentItemQty + delta);
+  const inputEl = document.getElementById(`wItemQty_${prodKey}`);
+  if (inputEl) inputEl.value = updated;
+  setCustomItemQtyDirect(prodKey, updated);
+}
+
+function getCustomTrayTotalPieces() {
+  return Object.values(customBuilderState.items).reduce((sum, qty) => sum + qty, 0);
+}
+
+function calculateCustomTrayPrice() {
+  let total = 0;
+  Object.keys(customBuilderState.items).forEach(prodKey => {
+    const qty = customBuilderState.items[prodKey] || 0;
+    const prod = KAKAO_CONFIG.products[prodKey];
+    if (qty > 0 && prod) {
+      total += (qty * prod.price);
     }
-  }
-
-  const headerTotal = document.getElementById('headerTotalAmount');
-  const finalTotal = document.getElementById('finalTotalAmount');
-  const floatingTotal = document.getElementById('floatingTotal');
-  const floatingCount = document.getElementById('floatingCount');
-  const floatingBar = document.getElementById('floatingBar');
-
-  const formattedTotal = formatCurrency(totalAmount);
-  if (headerTotal) headerTotal.textContent = formattedTotal;
-  if (finalTotal) finalTotal.textContent = formattedTotal;
-  if (floatingTotal) floatingTotal.textContent = formattedTotal;
-
-  if (floatingCount) {
-    floatingCount.textContent = `${totalItemsCount} ${totalItemsCount === 1 ? 'Producto' : 'Productos'}`;
-  }
-
-  if (floatingBar) {
-    floatingBar.style.display = totalItemsCount > 0 ? 'block' : 'none';
-  }
+  });
+  return total;
 }
 
-function saveOrderToCRM(orderData) {
-  try {
-    const existing = JSON.parse(localStorage.getItem('kakao_crm_orders') || '[]');
-    existing.unshift(orderData);
-    localStorage.setItem('kakao_crm_orders', JSON.stringify(existing));
-  } catch (e) {
-    console.error('Error guardando en CRM local:', e);
-  }
+function updateWizardCapacityMeter() {
+  const sizeInfo = CUSTOM_TRAY_SIZES[customBuilderState.size];
+  const total = getCustomTrayTotalPieces();
+  const max = sizeInfo.maxPieces;
+  const pct = Math.min(100, Math.round((total / max) * 100));
+  const calcPrice = calculateCustomTrayPrice();
+
+  const nameEl = document.getElementById('wizardCurrentSizeName');
+  const priceEl = document.getElementById('wizardCapacityPrice');
+  const badgeEl = document.getElementById('wizardCapacityBadge');
+  const fillEl = document.getElementById('wizardProgressFill');
+
+  if (nameEl) nameEl.textContent = sizeInfo.name;
+  if (priceEl) priceEl.textContent = `$${calcPrice.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} MXN`;
+  if (badgeEl) badgeEl.textContent = `${total} / ${max} piezas`;
+  if (fillEl) fillEl.style.width = `${pct}%`;
 }
 
-function getCrmOrders() {
-  try {
-    return JSON.parse(localStorage.getItem('kakao_crm_orders') || '[]');
-  } catch (e) {
-    return [];
-  }
-}
+function renderWizardSummaryStep() {
+  const sizeInfo = CUSTOM_TRAY_SIZES[customBuilderState.size];
+  const total = getCustomTrayTotalPieces();
+  const calcPrice = calculateCustomTrayPrice();
 
-window.sendWhatsAppOrder = function() {
-  let totalItemsCount = 0;
-  let subtotal = 0;
-  const itemsDetailed = [];
+  const titleEl = document.getElementById('summaryCustomSizeName');
+  const priceEl = document.getElementById('summaryCustomPrice');
+  const listEl = document.getElementById('summaryCustomPiecesList');
+  const countEl = document.getElementById('summaryCustomTotalCount');
 
-  let traysText = '';
-  for (const [id, qty] of Object.entries(cartState.trays)) {
-    if (qty > 0) {
-      const tray = KAKAO_CONFIG.trays[id];
-      const custom = trayCustomizations[id];
-      const itemTotal = tray.price * qty;
-      totalItemsCount += qty;
-      subtotal += itemTotal;
+  if (titleEl) titleEl.textContent = sizeInfo.name;
+  if (priceEl) priceEl.textContent = `$${calcPrice.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} MXN`;
+  if (countEl) countEl.textContent = `${total} piezas`;
 
-      itemsDetailed.push({
-        type: 'Bandeja Clásica',
-        name: `${tray.name} (${tray.pieces})`,
-        qty: qty,
-        unitPrice: tray.price,
-        subtotal: itemTotal,
-        notes: `Esferas: ${custom.esferas} | Mendiants: ${custom.mendiants} | Rama: ${custom.rama}`
-      });
-
-      traysText += `\n*${qty}x ${tray.name}* ($${itemTotal} MXN)\n`;
-      traysText += `   • ${tray.pieces}\n`;
-      traysText += `   • Medias esferas: ${custom.esferas}\n`;
-      traysText += `   • Mendiants: ${custom.mendiants}\n`;
-      traysText += `   • Rama: ${custom.rama}\n`;
-    }
-  }
-
-  let customTraysText = '';
-  if (cartState.customTrays && cartState.customTrays.length > 0) {
-    cartState.customTrays.forEach((ct, index) => {
-      totalItemsCount += 1;
-      subtotal += ct.totalPrice;
-
-      const innerList = Object.values(ct.items).map(i => `${i.qty}x ${i.name}`).join(', ');
-      itemsDetailed.push({
-        type: 'Charola Personalizada',
-        name: `${ct.sizeName} (${ct.totalPieces} pzas)`,
-        qty: 1,
-        unitPrice: ct.totalPrice,
-        subtotal: ct.totalPrice,
-        notes: innerList
-      });
-
-      customTraysText += `\n*Charola #${index + 1} Personalizada (${ct.sizeName})* (${formatCurrency(ct.totalPrice)})\n`;
-      customTraysText += `   • Total: ${ct.totalPieces} piezas\n`;
-      customTraysText += `   • Detalle seleccionado:\n`;
-      for (const item of Object.values(ct.items)) {
-        customTraysText += `     - ${item.qty}x ${item.name} (${formatCurrency(item.unitPrice)} c/u) = ${formatCurrency(item.subtotal)}\n`;
+  if (listEl) {
+    let piecesHtml = '';
+    let hasItems = false;
+    Object.keys(customBuilderState.items).forEach(prodKey => {
+      const qty = customBuilderState.items[prodKey];
+      if (qty > 0) {
+        hasItems = true;
+        const prod = KAKAO_CONFIG.products[prodKey];
+        const subtotal = qty * prod.price;
+        piecesHtml += `
+          <div class="summary-piece-row">
+            <span>• ${prod.name} x${qty}</span>
+            <strong>$${subtotal.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} MXN</strong>
+          </div>
+        `;
       }
     });
+
+    if (!hasItems) {
+      piecesHtml = '<p style="color: var(--text-dim); font-size: 0.85rem;">No has seleccionado piezas aún. Regresa al paso 2 para elegir tus sabores.</p>';
+    }
+
+    listEl.innerHTML = piecesHtml;
+  }
+}
+
+function addCustomTrayToOrder() {
+  const totalPieces = getCustomTrayTotalPieces();
+  if (totalPieces === 0) {
+    alert('Por favor agrega al menos 1 pieza a tu charola antes de confirmar.');
+    setWizardStep(2);
+    return;
   }
 
-  let prodsText = '';
-  let totalGranelGrams = 0;
-  for (const [id, qty] of Object.entries(cartState.products)) {
+  const sizeInfo = CUSTOM_TRAY_SIZES[customBuilderState.size];
+  const calcPrice = calculateCustomTrayPrice();
+  const customTray = {
+    id: `custom_${Date.now()}`,
+    sizeKey: customBuilderState.size,
+    sizeName: sizeInfo.name,
+    price: calcPrice,
+    totalPieces: totalPieces,
+    items: { ...customBuilderState.items }
+  };
+
+  cartState.customTrays.push(customTray);
+
+  // Reiniciar estado del builder
+  Object.keys(customBuilderState.items).forEach(k => customBuilderState.items[k] = 0);
+  renderWizardItems();
+  setWizardStep(1);
+
+  updateAllCartDisplays();
+  navigateToView('checkout');
+}
+
+// ==========================================================================
+// FLUJO 3: CHOCOLATE A GRANEL (Mínimo 250 g Sticky)
+// ==========================================================================
+
+function renderBulkProducts() {
+  const container = document.getElementById('bulkProductsGrid');
+  if (!container) return;
+
+  let html = '';
+  Object.keys(KAKAO_CONFIG.products).forEach(prodKey => {
+    const prod = KAKAO_CONFIG.products[prodKey];
+    const qty = cartState.products[prodKey] || 0;
+
+    html += `
+      <div class="product-card-vertical">
+        <div class="product-card-photo-box skeleton-box">
+          <img src="${prod.photo}" alt="${prod.name}" loading="lazy" onload="handleImageLoaded(this)">
+        </div>
+        <div class="product-card-details">
+          <h4 class="product-card-title">${prod.name}</h4>
+          <span class="product-card-unit">${prod.unit}</span>
+          <div class="product-card-price">$${prod.price.toFixed(2)} MXN</div>
+        </div>
+        <div class="product-card-stepper-wrap">
+          <div class="stepper-box">
+            <button type="button" class="btn-stepper" onclick="adjustBulkQty('${prodKey}', -1)" aria-label="Restar">−</button>
+            <input type="number" min="0" max="999" class="stepper-val-input" id="bulkQty_${prodKey}" value="${qty}" onchange="setBulkQtyDirect('${prodKey}', this.value)" oninput="setBulkQtyDirect('${prodKey}', this.value)" aria-label="Cantidad">
+            <button type="button" class="btn-stepper" onclick="adjustBulkQty('${prodKey}', 1)" aria-label="Sumar">+</button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+function setBulkQtyDirect(prodKey, val) {
+  const parsed = Math.max(0, parseInt(val, 10) || 0);
+  cartState.products[prodKey] = parsed;
+
+  const inputEl = document.getElementById(`bulkQty_${prodKey}`);
+  if (inputEl && document.activeElement !== inputEl) {
+    inputEl.value = parsed;
+  }
+
+  updateAllCartDisplays();
+}
+
+function adjustBulkQty(prodKey, delta) {
+  const current = cartState.products[prodKey] || 0;
+  const updated = Math.max(0, current + delta);
+  const inputEl = document.getElementById(`bulkQty_${prodKey}`);
+  if (inputEl) inputEl.value = updated;
+  setBulkQtyDirect(prodKey, updated);
+}
+
+function calculateBulkGrams() {
+  let totalGrams = 0;
+  Object.keys(cartState.products).forEach(prodKey => {
+    const qty = cartState.products[prodKey] || 0;
+    const prod = KAKAO_CONFIG.products[prodKey];
+    if (qty > 0 && prod) {
+      totalGrams += (qty * prod.weightGrams);
+    }
+  });
+  return totalGrams;
+}
+
+function calculateBulkPrice() {
+  let total = 0;
+  Object.keys(cartState.products).forEach(prodKey => {
+    const qty = cartState.products[prodKey] || 0;
+    const prod = KAKAO_CONFIG.products[prodKey];
+    if (qty > 0 && prod) {
+      total += (qty * prod.price);
+    }
+  });
+  return total;
+}
+
+function updateBulkStickyMeter() {
+  const totalGrams = calculateBulkGrams();
+  const totalPrice = calculateBulkPrice();
+  const minGrams = 250;
+  const pct = Math.min(100, Math.round((totalGrams / minGrams) * 100));
+
+  const meterContainer = document.getElementById('bulkStickyMeter');
+  const currentEl = document.getElementById('bulkGramsCurrent');
+  const hintEl = document.getElementById('bulkGramsHint');
+  const fillEl = document.getElementById('bulkProgressFill');
+  const priceEl = document.getElementById('bulkPriceCurrent');
+
+  if (currentEl) currentEl.textContent = `${totalGrams} g / ${minGrams} g mínimo`;
+  if (fillEl) fillEl.style.width = `${pct}%`;
+  if (priceEl) priceEl.textContent = `$${totalPrice.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} MXN`;
+
+  if (totalGrams >= minGrams) {
+    if (meterContainer) meterContainer.classList.add('ready');
+    if (hintEl) hintEl.textContent = `Mínimo cumplido (${totalGrams} g acumulados)`;
+  } else {
+    if (meterContainer) meterContainer.classList.remove('ready');
+    const missing = minGrams - totalGrams;
+    if (hintEl) hintEl.textContent = `Faltan ${missing} g para cumplir el mínimo de 250 g`;
+  }
+}
+
+// ==========================================================================
+// CÁLCULO TOTAL Y SINCRONIZACIÓN DE INTERFAZ
+// ==========================================================================
+
+function calculateCartTotals() {
+  let totalPrice = 0;
+  let totalItemsCount = 0;
+
+  // 1. Bandejas armadas
+  Object.keys(cartState.trays).forEach(trayId => {
+    const qty = cartState.trays[trayId] || 0;
     if (qty > 0) {
-      const prod = KAKAO_CONFIG.products[id];
-      if (!prod) continue;
-      const itemTotal = prod.price * qty;
+      const price = KAKAO_CONFIG.trays[trayId].price;
+      totalPrice += (qty * price);
       totalItemsCount += qty;
-      subtotal += itemTotal;
-      if (prod.weightGrams) {
-        totalGranelGrams += prod.weightGrams * qty;
-      }
+    }
+  });
 
-      itemsDetailed.push({
-        type: 'Granel / Especialidad',
-        name: prod.name,
-        qty: qty,
-        unitPrice: prod.price,
-        subtotal: itemTotal,
-        notes: prod.unit
-      });
+  // 2. Charolas personalizadas
+  cartState.customTrays.forEach(tray => {
+    totalPrice += tray.price;
+    totalItemsCount += 1;
+  });
 
-      prodsText += `\n*${qty}x ${prod.name}* (${formatCurrency(itemTotal)})\n`;
+  // 3. Granel (calcula precio unitario exacto por cada pieza)
+  Object.keys(cartState.products).forEach(prodKey => {
+    const qty = cartState.products[prodKey] || 0;
+    if (qty > 0) {
+      const prod = KAKAO_CONFIG.products[prodKey];
+      totalPrice += (qty * prod.price);
+      totalItemsCount += qty;
+    }
+  });
+
+  return { totalPrice, totalItemsCount };
+}
+
+function removeItemFromCart(type, key) {
+  if (type === 'tray') {
+    setTrayQtyDirect(key, 0);
+  } else if (type === 'custom') {
+    const index = parseInt(key, 10);
+    if (!isNaN(index) && index >= 0 && index < cartState.customTrays.length) {
+      cartState.customTrays.splice(index, 1);
+    }
+    updateAllCartDisplays();
+  } else if (type === 'bulk') {
+    setBulkQtyDirect(key, 0);
+  }
+  renderCheckoutSummary();
+}
+
+function updateAllCartDisplays() {
+  const { totalPrice, totalItemsCount } = calculateCartTotals();
+  const formattedTotal = `$${totalPrice.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} MXN`;
+
+  // Top sticky nav cart pill (se oculta si el carrito está en $0)
+  const navCartPill = document.querySelector('.nav-cart-pill');
+  const navTotal = document.getElementById('navCartTotal');
+  if (navTotal) navTotal.textContent = formattedTotal;
+  if (navCartPill) {
+    if (totalItemsCount > 0) {
+      navCartPill.style.display = 'inline-flex';
+    } else {
+      navCartPill.style.display = 'none';
     }
   }
 
-  if (totalItemsCount === 0) {
-    alert('Por favor agrega al menos una bandeja o producto a tu pedido.');
-    document.getElementById('bandejas').scrollIntoView({ behavior: 'smooth' });
-    return;
+  // Persistent bottom dock (solo se muestra cuando hay productos agregados)
+  const dock = document.getElementById('persistentCartDock');
+  const dockCount = document.getElementById('dockItemsCount');
+  const dockTotal = document.getElementById('dockTotalPrice');
+  
+  if (dockCount) {
+    dockCount.textContent = totalItemsCount === 1 ? '1 producto' : `${totalItemsCount} productos`;
+  }
+  if (dockTotal) dockTotal.textContent = formattedTotal;
+
+  if (dock) {
+    if (totalItemsCount > 0) {
+      dock.classList.add('active');
+      document.body.classList.add('has-cart');
+    } else {
+      dock.classList.remove('active');
+      document.body.classList.remove('has-cart');
+    }
   }
 
-  if (totalGranelGrams > 0 && totalGranelGrams < 250) {
-    alert(`La compra mínima en la sección de chocolate a granel es de 250 g.\nActualmente llevas ${totalGranelGrams} g (faltan ${250 - totalGranelGrams} g).\n\nPor favor completa los 250 g para continuar.`);
-    const saboresSection = document.getElementById('sabores');
-    if (saboresSection) saboresSection.scrollIntoView({ behavior: 'smooth' });
-    return;
+  // Sticky granel meter
+  updateBulkStickyMeter();
+}
+
+// ==========================================================================
+// FLUJO 5: CHECKOUT Y RESUMEN
+// ==========================================================================
+
+function renderCheckoutSummary() {
+  const container = document.getElementById('checkoutItemsList');
+  const finalTotalEl = document.getElementById('checkoutFinalTotal');
+  if (!container) return;
+
+  const { totalPrice } = calculateCartTotals();
+  let html = '';
+  let hasAny = false;
+
+  // 1. Bandejas Armadas
+  Object.keys(cartState.trays).forEach(trayId => {
+    const qty = cartState.trays[trayId] || 0;
+    if (qty > 0) {
+      hasAny = true;
+      const tray = KAKAO_CONFIG.trays[trayId];
+      const custom = cartState.trayCustomizations[trayId];
+      const subtotal = qty * tray.price;
+
+      html += `
+        <div class="checkout-item-row" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+          <div class="checkout-item-name" style="flex: 1;">
+            <strong>${tray.name} x${qty}</strong>
+            <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 2px;">
+              Esferas: ${custom.esferas} · Mendiants: ${custom.mendiants || 'Surtido'} · Rama: ${custom.rama}
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="checkout-item-price" style="font-weight: 700; color: var(--gold-light);">$${subtotal.toLocaleString('es-MX')} MXN</div>
+            <button type="button" class="btn-remove-item" onclick="removeItemFromCart('tray', '${trayId}')" title="Eliminar del pedido" style="background: rgba(255,59,48,0.15); border: 1px solid rgba(255,59,48,0.3); color: #ff6961; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600;">✕</button>
+          </div>
+        </div>
+      `;
+    }
+  });
+
+  // 2. Charolas Personalizadas
+  cartState.customTrays.forEach((tray, index) => {
+    hasAny = true;
+    html += `
+      <div class="checkout-item-row" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+        <div class="checkout-item-name" style="flex: 1;">
+          <strong>${tray.sizeName} (Personalizada)</strong>
+          <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 2px;">${tray.totalPieces} piezas seleccionadas</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div class="checkout-item-price" style="font-weight: 700; color: var(--gold-light);">$${tray.price.toLocaleString('es-MX')} MXN</div>
+          <button type="button" class="btn-remove-item" onclick="removeItemFromCart('custom', ${index})" title="Eliminar del pedido" style="background: rgba(255,59,48,0.15); border: 1px solid rgba(255,59,48,0.3); color: #ff6961; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600;">✕</button>
+        </div>
+      </div>
+    `;
+  });
+
+  // 3. Granel
+  const bulkGrams = calculateBulkGrams();
+  if (bulkGrams > 0) {
+    hasAny = true;
+    Object.keys(cartState.products).forEach(prodKey => {
+      const qty = cartState.products[prodKey] || 0;
+      if (qty > 0) {
+        const prod = KAKAO_CONFIG.products[prodKey];
+        const subtotal = qty * prod.price;
+        html += `
+          <div class="checkout-item-row" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <div class="checkout-item-name" style="flex: 1;">
+              <span>• ${prod.name} x${qty} (${qty * prod.weightGrams} g)</span>
+              <div style="font-size: 0.75rem; color: var(--text-dim);">$${prod.price.toFixed(2)} c/u</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div class="checkout-item-price" style="font-weight: 700; color: var(--gold-light);">$${subtotal.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} MXN</div>
+              <button type="button" class="btn-remove-item" onclick="removeItemFromCart('bulk', '${prodKey}')" title="Eliminar del pedido" style="background: rgba(255,59,48,0.15); border: 1px solid rgba(255,59,48,0.3); color: #ff6961; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600;">✕</button>
+            </div>
+          </div>
+        `;
+      }
+    });
+
+    if (bulkGrams < 250) {
+      html += `
+        <div style="background: rgba(235, 87, 87, 0.18); border: 1px solid #eb5757; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; color: #ff9999; margin-top: 8px;">
+          Aviso: El pedido a granel tiene ${bulkGrams} g (mínimo requerido: 250 g).
+        </div>
+      `;
+    }
   }
 
-  const date = document.getElementById('orderDate').value;
-  const time = document.getElementById('orderTime').value;
-  const name = document.getElementById('clientName').value.trim();
-  const phone = document.getElementById('clientPhone').value.trim();
-  const notes = document.getElementById('orderNotes').value.trim();
-
-  if (!name) {
-    alert('Por favor ingresa tu Nombre Completo.');
-    document.getElementById('clientName').focus();
-    return;
+  if (!hasAny) {
+    html = '<p style="color: var(--text-dim); font-size: 0.88rem; text-align: center; padding: 20px 0;">Tu pedido está vacío. Elige una bandeja o chocolates a granel para continuar.</p>';
   }
 
-  if (!phone) {
-    alert('Por favor ingresa tu Teléfono o WhatsApp.');
-    document.getElementById('clientPhone').focus();
-    return;
+  container.innerHTML = html;
+  if (finalTotalEl) finalTotalEl.textContent = `$${totalPrice.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} MXN`;
+}
+
+function setupDatePickerMin() {
+  const dateInput = document.getElementById('orderDate');
+  if (dateInput) {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    dateInput.min = `${yyyy}-${mm}-${dd}`;
+    dateInput.value = `${yyyy}-${mm}-${dd}`;
+  }
+}
+
+// ==========================================================================
+// PASARELA DE COBRO CON MERCADO PAGO Y WHATSAPP
+// ==========================================================================
+
+function validateOrderFields() {
+  const clientName = document.getElementById('clientName')?.value.trim();
+  const clientPhone = document.getElementById('clientPhone')?.value.trim();
+  const orderDate = document.getElementById('orderDate')?.value;
+  const { totalPrice } = calculateCartTotals();
+  const bulkGrams = calculateBulkGrams();
+
+  if (totalPrice <= 0) {
+    alert('Agrega al menos una bandeja o productos a granel antes de finalizar tu pedido.');
+    return null;
   }
 
-  const cardNumberRaw = (document.getElementById('mpCardNumber')?.value || '').replace(/\D/g, '');
-  const cardHolder = (document.getElementById('mpCardHolder')?.value || '').trim();
-  const cardExpiry = (document.getElementById('mpCardExpiry')?.value || '').trim();
-  const cardCvv = (document.getElementById('mpCardCvv')?.value || '').trim();
-
-  if (cardNumberRaw.length < 15) {
-    alert('Por favor ingresa un número de tarjeta válido.');
-    document.getElementById('mpCardNumber')?.focus();
-    return;
+  if (bulkGrams > 0 && bulkGrams < 250) {
+    alert(`El pedido a granel no cumple con los 250 g mínimos requeridos (llevas ${bulkGrams} g). Por favor completa los gramos faltantes.`);
+    navigateToView('bulk');
+    return null;
   }
 
-  if (!cardHolder) {
-    alert('Por favor ingresa el nombre del titular como aparece en la tarjeta.');
-    document.getElementById('mpCardHolder')?.focus();
-    return;
+  if (!clientName) {
+    alert('Por favor ingresa tu nombre completo para la entrega.');
+    document.getElementById('clientName')?.focus();
+    return null;
   }
 
-  if (cardExpiry.length < 5) {
-    alert('Por favor ingresa la fecha de vencimiento (MM/AA).');
-    document.getElementById('mpCardExpiry')?.focus();
-    return;
+  if (!clientPhone) {
+    alert('Por favor ingresa tu número de teléfono / WhatsApp para contactarte.');
+    document.getElementById('clientPhone')?.focus();
+    return null;
   }
 
-  if (cardCvv.length < 3) {
-    alert('Por favor ingresa el código de seguridad (CVV/CVC).');
-    document.getElementById('mpCardCvv')?.focus();
-    return;
+  if (!orderDate) {
+    alert('Por favor selecciona la fecha de recolección en Tapalpa.');
+    return null;
   }
 
-  const last4 = cardNumberRaw.slice(-4);
-  let cardBrand = 'Mercado Pago';
-  if (cardNumberRaw.startsWith('4')) cardBrand = 'Visa';
-  else if (cardNumberRaw.startsWith('5') || cardNumberRaw.startsWith('2')) cardBrand = 'Mastercard';
-  else if (cardNumberRaw.startsWith('3')) cardBrand = 'Amex';
+  return {
+    clientName,
+    clientPhone,
+    clientEmail: document.getElementById('clientEmail')?.value.trim(),
+    orderDate,
+    orderTime: document.getElementById('orderTime')?.value || '12:00 - 15:00',
+    orderNotes: document.getElementById('orderNotes')?.value.trim(),
+    totalPrice
+  };
+}
 
-  const finalAmount = subtotal;
-  const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-  const orderFolio = `KAK-${randomSuffix}`;
-  const nowIso = new Date().toISOString();
+async function processMercadoPagoPayment() {
+  const orderData = validateOrderFields();
+  if (!orderData) return;
 
-  const crmOrderRecord = {
-    id: orderFolio,
-    createdAt: nowIso,
-    clientName: name,
-    clientPhone: phone,
-    orderDate: date,
-    orderTime: time,
-    paymentMode: `Mercado Pago (${cardBrand} **** ${last4})`,
-    totalAmount: finalAmount,
-    cardHolder: cardHolder,
-    cardLast4: last4,
-    cardBrand: cardBrand,
-    notes: notes,
-    items: itemsDetailed,
-    status: 'PAGADO_MERCADOPAGO'
+  const btnPay = document.getElementById('btnPayMercadoPago');
+  if (btnPay) {
+    btnPay.disabled = true;
+    btnPay.innerHTML = '<span>Generando orden segura...</span>';
+  }
+
+  const folio = `KAK-${Date.now().toString().slice(-4)}`;
+  const items = [];
+
+  // Bandejas armadas
+  Object.keys(cartState.trays).forEach(trayId => {
+    const qty = cartState.trays[trayId] || 0;
+    if (qty > 0) {
+      const tray = KAKAO_CONFIG.trays[trayId];
+      const custom = cartState.trayCustomizations[trayId];
+      items.push({
+        title: `${tray.name} (Esferas: ${custom.esferas} · Mendiants: ${custom.mendiants || 'Surtido'} · Rama: ${custom.rama})`,
+        unit_price: tray.price,
+        quantity: qty
+      });
+    }
+  });
+
+  // Charolas personalizadas
+  cartState.customTrays.forEach((tray, index) => {
+    items.push({
+      title: `${tray.sizeName} Personalizada (#${index + 1})`,
+      unit_price: tray.price,
+      quantity: 1
+    });
+  });
+
+  // Granel
+  Object.keys(cartState.products).forEach(prodKey => {
+    const qty = cartState.products[prodKey] || 0;
+    if (qty > 0) {
+      const prod = KAKAO_CONFIG.products[prodKey];
+      items.push({
+        title: prod.name,
+        unit_price: prod.price,
+        quantity: qty
+      });
+    }
+  });
+
+  const payload = {
+    folio: folio,
+    totalAmount: orderData.totalPrice,
+    items: items,
+    payer: {
+      name: orderData.clientName,
+      email: orderData.clientEmail || 'contacto@kakaochocolateria.com',
+      phone: orderData.clientPhone
+    }
   };
 
-  saveOrderToCRM(crmOrderRecord);
+  try {
+    const response = await fetch('/.netlify/functions/create-preference', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
 
-  let message = `*ORDEN DE COMPRA · KAKAO CHOCOLATERÍA*\n`;
-  message += `_Alta bombonería de montaña · Tapalpa, Jalisco_\n`;
-  message += `─────────────────────────\n`;
-  message += `*FOLIO:* #${orderFolio}\n`;
-  message += `─────────────────────────\n\n`;
-  message += `*Cliente:* ${name}\n`;
-  message += `*Teléfono:* ${phone}\n`;
-  message += `*Fecha de Recolección:* ${date}\n`;
-  message += `*Horario Preferido:* ${time}\n`;
-  message += `*Modalidad:* Pick Up en Tapalpa Centro (Sin costo)\n`;
+    const result = await response.json();
 
-  if (traysText) {
-    message += `\n*BANDEJAS SOLICITADAS:*${traysText}`;
+    if (result.init_point) {
+      // Guardar en CRM local inicialmente como PENDIENTE DE PAGO
+      saveOrderToLocalCrm({
+        folio: folio,
+        clientName: orderData.clientName,
+        clientPhone: orderData.clientPhone,
+        pickupDate: `${orderData.orderDate} (${orderData.orderTime})`,
+        total: orderData.totalPrice,
+        method: 'MERCADO_PAGO',
+        status: 'PENDIENTE_PAGO',
+        date: new Date().toISOString()
+      });
+
+      // Despachar alerta Push
+      try {
+        fetch('https://ntfy.sh/kakao_pedidos_tapalpa', {
+          method: 'POST',
+          body: `Nuevo intento de pago MP #${folio}: $${orderData.totalPrice.toLocaleString('es-MX')} MXN de ${orderData.clientName}`,
+          headers: { 'Title': `💳 Pedido MP #${folio}`, 'Priority': 'default', 'Tags': 'credit_card' }
+        }).catch(() => {});
+      } catch (e) {}
+
+      window.location.href = result.init_point;
+    } else {
+      throw new Error('No se pudo generar el enlace de pago de Mercado Pago.');
+    }
+  } catch (error) {
+    console.error('Error Mercado Pago:', error);
+    alert('Hubo un inconveniente al conectar con Mercado Pago. Te redirigiremos a WhatsApp para confirmar tu orden directamente.');
+    sendWhatsAppOrder();
+  } finally {
+    if (btnPay) {
+      btnPay.disabled = false;
+      btnPay.innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+          <line x1="1" y1="10" x2="23" y2="10"></line>
+        </svg>
+        <span>PAGAR AHORA CON MERCADO PAGO</span>
+      `;
+    }
   }
+}
 
-  if (customTraysText) {
-    message += `\n*CHAROLAS PERSONALIZADAS:*${customTraysText}`;
-  }
+function sendWhatsAppOrder() {
+  const orderData = validateOrderFields();
+  if (!orderData) return;
 
-  if (prodsText) {
-    message += `\n*SELECCIÓN A GRANEL:*${prodsText}`;
-  }
+  const folio = `KAK-${Date.now().toString().slice(-4)}`;
+  let itemsText = '';
 
-  if (notes) {
-    message += `\n*Nota / Dedicatoria:* ${notes}\n`;
-  }
+  Object.keys(cartState.trays).forEach(trayId => {
+    const qty = cartState.trays[trayId] || 0;
+    if (qty > 0) {
+      const tray = KAKAO_CONFIG.trays[trayId];
+      const custom = cartState.trayCustomizations[trayId];
+      itemsText += `• *${tray.name}* x${qty} ($${qty * tray.price} MXN)\n  - Esferas: ${custom.esferas}\n  - Mendiants: ${custom.mendiants || 'Surtido'}\n  - Rama: ${custom.rama}\n`;
+    }
+  });
 
-  message += `\n─────────────────────────\n`;
-  message += `*TOTAL PAGADO: ${formatCurrency(finalAmount)}*\n`;
-  message += `*MÉTODO DE PAGO:* Mercado Pago (${cardBrand} **** ${last4})\n`;
-  message += `*Titular:* ${cardHolder}\n`;
-  message += `─────────────────────────\n\n`;
-  message += `*Confirmación de Entrega:* Recibimos tu orden y confirmamos la hora exacta de entrega en el punto seleccionado de Tapalpa Centro.\n\n`;
-  message += `_KAKAO Chocolatería · Tapalpa, Jalisco_`;
+  cartState.customTrays.forEach(tray => {
+    itemsText += `• *${tray.sizeName} Personalizada* ($${tray.price} MXN) - ${tray.totalPieces} piezas\n`;
+  });
+
+  Object.keys(cartState.products).forEach(prodKey => {
+    const qty = cartState.products[prodKey] || 0;
+    if (qty > 0) {
+      const prod = KAKAO_CONFIG.products[prodKey];
+      itemsText += `• *${prod.name}* x${qty} ($${(qty * prod.price).toFixed(2)} MXN)\n`;
+    }
+  });
+
+  const message = `*PEDIDO KAKAO CHOCOLATERIA*\n` +
+    `*Folio:* #${folio}\n` +
+    `*Estado:* ⏳ PENDIENTE DE PAGO (Transferencia / Efectivo)\n\n` +
+    `*Cliente:* ${orderData.clientName}\n` +
+    `*Telefono:* ${orderData.clientPhone}\n` +
+    `*Fecha de Entrega:* ${orderData.orderDate} (${orderData.orderTime})\n` +
+    `*Punto de Pick Up:* Centro de Tapalpa, Jalisco\n` +
+    (orderData.orderNotes ? `*Nota Especial:* ${orderData.orderNotes}\n` : '') +
+    `\n*Articulos Seleccionados:*\n${itemsText}\n` +
+    `*TOTAL A PAGAR:* $${orderData.totalPrice.toLocaleString('es-MX')} MXN\n\n` +
+    `Hola KAKAO, envio los detalles de mi pedido para coordinar pago por transferencia/efectivo y confirmar la preparación.`;
+
+  saveOrderToLocalCrm({
+    folio: folio,
+    clientName: orderData.clientName,
+    clientPhone: orderData.clientPhone,
+    pickupDate: `${orderData.orderDate} (${orderData.orderTime})`,
+    total: orderData.totalPrice,
+    method: 'WHATSAPP_TRANSFERENCIA',
+    status: 'PENDIENTE_PAGO',
+    itemsSummary: itemsText,
+    date: new Date().toISOString()
+  });
+
+  // Despachar alerta Push instantánea
+  try {
+    fetch('https://ntfy.sh/kakao_pedidos_tapalpa', {
+      method: 'POST',
+      body: `Nuevo Pedido #${folio} por WhatsApp ($${orderData.totalPrice.toLocaleString('es-MX')} MXN) de ${orderData.clientName} (Tel: ${orderData.clientPhone})`,
+      headers: {
+        'Title': `🍫 Nuevo Pedido WhatsApp #${folio}`,
+        'Priority': 'urgent',
+        'Tags': 'chocolate,bell,warning'
+      }
+    }).catch(() => {});
+  } catch (e) {}
 
   const waUrl = `https://wa.me/${KAKAO_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
   window.open(waUrl, '_blank');
-};
+}
 
-window.openCrmModal = function() {
-  const modal = document.getElementById('crmModal');
-  if (modal) {
-    modal.style.display = 'flex';
-    if (crmIsAuth) {
-      document.getElementById('crmAuthView').style.display = 'none';
-      document.getElementById('crmDashboardView').style.display = 'block';
-      renderCrmOrders();
-    } else {
-      document.getElementById('crmAuthView').style.display = 'flex';
-      document.getElementById('crmDashboardView').style.display = 'none';
-      const pinField = document.getElementById('crmPinInput');
-      if (pinField) {
-        pinField.value = '';
-        setTimeout(() => pinField.focus(), 150);
+// ==========================================================================
+// MODAL PAGO EXITOSO RETORNO
+// ==========================================================================
+
+function checkUrlPaymentStatus() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const status = urlParams.get('status');
+  const externalRef = urlParams.get('external_reference');
+  const paymentId = urlParams.get('payment_id');
+  
+  if (status === 'approved') {
+    const orders = getStoredCrmOrders();
+    const order = (externalRef ? orders.find(o => o.folio === externalRef) : null) || orders[0];
+    if (order) {
+      order.status = 'PAGADO_CONFIRMADO';
+      order.paidAt = new Date().toISOString();
+      if (paymentId) order.paymentId = paymentId;
+      localStorage.setItem(CRM_STORAGE_KEY, JSON.stringify(orders));
+      const folioEl = document.getElementById('successFolio');
+      if (folioEl) folioEl.textContent = `#${order.folio || externalRef || 'KAK-OK'}`;
+    }
+    const successModal = document.getElementById('paymentSuccessModal');
+    if (successModal) successModal.style.display = 'flex';
+  } else if (status === 'rejected' || status === 'cancelled') {
+    if (externalRef) {
+      const orders = getStoredCrmOrders();
+      const order = orders.find(o => o.folio === externalRef);
+      if (order && order.status === 'PENDIENTE_PAGO') {
+        order.status = 'CANCELADO';
+        localStorage.setItem(CRM_STORAGE_KEY, JSON.stringify(orders));
       }
     }
   }
-};
+}
 
-window.closeCrmModal = function() {
+function closeSuccessModal() {
+  const successModal = document.getElementById('paymentSuccessModal');
+  if (successModal) successModal.style.display = 'none';
+  window.history.replaceState({}, document.title, window.location.pathname);
+  navigateToView('entry');
+}
+
+// ==========================================================================
+// PANEL ADMINISTRATIVO CRM (Protegido por PIN)
+// ==========================================================================
+
+const CRM_PINS = ['1234', 'kakao2026'];
+const CRM_STORAGE_KEY = 'kakao_crm_orders_v2';
+
+function openCrmModal() {
   const modal = document.getElementById('crmModal');
-  if (modal) modal.style.display = 'none';
-};
-
-window.checkCrmAuth = function() {
-  const pinInput = document.getElementById('crmPinInput');
-  const pin = pinInput ? pinInput.value.trim() : '';
-
-  if (pin === '1234' || pin === 'kakao') {
-    crmIsAuth = true;
-    document.getElementById('crmAuthView').style.display = 'none';
-    document.getElementById('crmDashboardView').style.display = 'block';
-    renderCrmOrders();
-  } else {
-    alert('PIN incorrecto. Intenta con: 1234');
+  if (modal) {
+    modal.style.display = 'flex';
+    document.getElementById('crmAuthView').style.display = 'block';
+    document.getElementById('crmDashboardView').style.display = 'none';
+    const pinInput = document.getElementById('crmPinInput');
     if (pinInput) {
       pinInput.value = '';
       pinInput.focus();
     }
   }
-};
+}
 
-const CRM_STATUS_LABELS = {
-  PAGADO_MERCADOPAGO: { label: 'Pagado Mercado Pago', color: '#25d366' },
-  EN_PRODUCCION: { label: 'En Producción', color: '#f5e4b2' },
-  LISTO_PICKUP: { label: 'Listo para Entrega', color: '#4da6ff' },
-  ENTREGADO: { label: 'Entregado', color: '#a3e635' }
-};
+function closeCrmModal() {
+  const modal = document.getElementById('crmModal');
+  if (modal) modal.style.display = 'none';
+}
 
-window.renderCrmOrders = function() {
-  const orders = getCrmOrders();
-  const search = (document.getElementById('crmSearchInput')?.value || '').toLowerCase().trim();
-  const filterStatus = document.getElementById('crmStatusFilter')?.value || 'ALL';
+function checkCrmAuth() {
+  const pinInput = document.getElementById('crmPinInput');
+  const enteredPin = pinInput?.value.trim();
 
-  let totalRev = 0;
-  let inProgressCount = 0;
+  if (CRM_PINS.includes(enteredPin)) {
+    document.getElementById('crmAuthView').style.display = 'none';
+    document.getElementById('crmDashboardView').style.display = 'block';
+    renderCrmDashboard();
+  } else {
+    alert('PIN de seguridad incorrecto.');
+    if (pinInput) pinInput.value = '';
+  }
+}
+
+function getStoredCrmOrders() {
+  try {
+    return JSON.parse(localStorage.getItem(CRM_STORAGE_KEY) || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveOrderToLocalCrm(order) {
+  const orders = getStoredCrmOrders();
+  orders.unshift(order);
+  localStorage.setItem(CRM_STORAGE_KEY, JSON.stringify(orders));
+}
+
+function renderCrmDashboard() {
+  const orders = getStoredCrmOrders();
+  
+  let totalRevenue = 0;
+  let awaitingPaymentCount = 0;
+  let inProductionCount = 0;
   let completedCount = 0;
 
   orders.forEach(o => {
-    totalRev += o.totalAmount || 0;
-    if (o.status === 'PAGADO_MERCADOPAGO' || o.status === 'EN_PRODUCCION') inProgressCount++;
-    if (o.status === 'ENTREGADO') completedCount++;
+    // Solo sumar ingresos de pedidos donde el dinero ya fue confirmado
+    if (['PAGADO_CONFIRMADO', 'EN_PRODUCCION', 'LISTO_PICKUP', 'ENTREGADO'].includes(o.status)) {
+      totalRevenue += Number(o.total || 0);
+    }
+
+    if (o.status === 'PENDIENTE_PAGO') {
+      awaitingPaymentCount++;
+    } else if (['PAGADO_CONFIRMADO', 'EN_PRODUCCION', 'LISTO_PICKUP'].includes(o.status)) {
+      inProductionCount++;
+    } else if (o.status === 'ENTREGADO') {
+      completedCount++;
+    }
   });
 
-  const kpiOrders = document.getElementById('kpiTotalOrders');
-  const kpiRev = document.getElementById('kpiTotalRevenue');
-  const kpiPending = document.getElementById('kpiPendingOrders');
-  const kpiDone = document.getElementById('kpiCompletedOrders');
+  const kpiTotalEl = document.getElementById('kpiTotalOrders');
+  if (kpiTotalEl) kpiTotalEl.textContent = orders.length;
 
-  if (kpiOrders) kpiOrders.textContent = orders.length;
-  if (kpiRev) kpiRev.textContent = formatCurrency(totalRev);
-  if (kpiPending) kpiPending.textContent = inProgressCount;
-  if (kpiDone) kpiDone.textContent = completedCount;
+  const kpiRevEl = document.getElementById('kpiTotalRevenue');
+  if (kpiRevEl) kpiRevEl.textContent = `$${totalRevenue.toLocaleString('es-MX')} MXN`;
+
+  const kpiAwaitEl = document.getElementById('kpiAwaitingPayment');
+  if (kpiAwaitEl) kpiAwaitEl.textContent = awaitingPaymentCount;
+
+  const kpiPendEl = document.getElementById('kpiPendingOrders');
+  if (kpiPendEl) kpiPendEl.textContent = inProductionCount;
+
+  const kpiCompEl = document.getElementById('kpiCompletedOrders');
+  if (kpiCompEl) kpiCompEl.textContent = completedCount;
+
+  filterCrmOrders();
+}
+
+function filterCrmOrders() {
+  const orders = getStoredCrmOrders();
+  const search = document.getElementById('crmSearchInput')?.value.toLowerCase() || '';
+  const filter = document.getElementById('crmStatusFilter')?.value || 'ALL';
+  const container = document.getElementById('crmOrdersList');
+  if (!container) return;
 
   const filtered = orders.filter(o => {
-    const matchesSearch = !search ||
-      (o.id && o.id.toLowerCase().includes(search)) ||
-      (o.clientName && o.clientName.toLowerCase().includes(search)) ||
-      (o.clientPhone && o.clientPhone.toLowerCase().includes(search));
-
-    const matchesStatus = filterStatus === 'ALL' || o.status === filterStatus;
-    return matchesSearch && matchesStatus;
+    const matchSearch = (o.folio || '').toLowerCase().includes(search) ||
+                        (o.clientName || '').toLowerCase().includes(search) ||
+                        (o.clientPhone || '').toLowerCase().includes(search);
+    const matchStatus = filter === 'ALL' || o.status === filter;
+    return matchSearch && matchStatus;
   });
 
-  const listElem = document.getElementById('crmOrdersList');
-  if (!listElem) return;
-
   if (filtered.length === 0) {
-    listElem.innerHTML = `<p class="empty-crm-hint">No hay pedidos registrados ${search || filterStatus !== 'ALL' ? 'con los filtros actuales' : 'aún'}.</p>`;
+    container.innerHTML = '<p style="color: var(--text-dim); text-align: center; padding: 20px;">No se encontraron pedidos registrados.</p>';
     return;
   }
 
   let html = '';
-  filtered.forEach(o => {
-    const statusInfo = CRM_STATUS_LABELS[o.status] || { label: o.status, color: '#fff' };
-    const dateFormatted = new Date(o.createdAt).toLocaleString('es-MX', {
-      day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
-    });
+  filtered.forEach((o) => {
+    const isPending = o.status === 'PENDIENTE_PAGO';
+    const isPaid = o.status === 'PAGADO_CONFIRMADO';
+    const isReady = o.status === 'LISTO_PICKUP';
+    const isDone = o.status === 'ENTREGADO';
+    const isCancel = o.status === 'CANCELADO';
+    const isProd = o.status === 'EN_PRODUCCION';
 
-    const itemsSummary = o.items.map(i => `• ${i.qty}x ${i.name} ($${i.subtotal})`).join('<br>');
-    const cleanPhone = (o.clientPhone || '').replace(/\D/g, '');
-    const waLink = `https://wa.me/52${cleanPhone}?text=Hola%20${encodeURIComponent(o.clientName)},%20te%20escribimos%20de%20KAKAO%20Tapalpa%20sobre%20tu%20pedido%20%23${o.id}`;
+    let badgeHtml = '';
+    if (isPending) {
+      badgeHtml = `<span style="background: rgba(255, 149, 0, 0.18); border: 1px solid #ff9500; color: #ff9f0a; padding: 4px 8px; border-radius: 4px; font-weight: 800; font-size: 0.74rem;">⏳ PENDIENTE DE PAGO · NO PREPARAR HASTA CONFIRMAR DINERO</span>`;
+    } else if (isPaid) {
+      badgeHtml = `<span style="background: rgba(37, 211, 102, 0.18); border: 1px solid #25d366; color: #25d366; padding: 4px 8px; border-radius: 4px; font-weight: 800; font-size: 0.74rem;">✓ DINERO EN CUENTA (MERCADO PAGO) · LISTO PARA ELABORAR</span>`;
+    } else if (isProd) {
+      badgeHtml = `<span style="background: rgba(175, 82, 222, 0.18); border: 1px solid #af52de; color: #d084ff; padding: 4px 8px; border-radius: 4px; font-weight: 800; font-size: 0.74rem;">🟣 EN PREPARACIÓN / TALLER</span>`;
+    } else if (isReady) {
+      badgeHtml = `<span style="background: rgba(0, 122, 255, 0.18); border: 1px solid #007aff; color: #5ac8fa; padding: 4px 8px; border-radius: 4px; font-weight: 800; font-size: 0.74rem;">📦 LISTO PARA ENTREGA PICK UP</span>`;
+    } else if (isDone) {
+      badgeHtml = `<span style="background: rgba(76, 217, 100, 0.18); border: 1px solid #4cd964; color: #4cd964; padding: 4px 8px; border-radius: 4px; font-weight: 800; font-size: 0.74rem;">✅ ENTREGADO</span>`;
+    } else if (isCancel) {
+      badgeHtml = `<span style="background: rgba(255, 59, 48, 0.18); border: 1px solid #ff3b30; color: #ff453a; padding: 4px 8px; border-radius: 4px; font-weight: 800; font-size: 0.74rem;">❌ CANCELADO</span>`;
+    }
+
+    const methodLabel = o.method === 'WHATSAPP_TRANSFERENCIA' 
+      ? '<span style="color: #25d366; font-weight: 700;">📱 WhatsApp / Transferencia</span>' 
+      : '<span style="color: #009ee3; font-weight: 700;">💳 Mercado Pago</span>';
 
     html += `
-      <div class="crm-order-card">
-        <div class="crm-order-card-header">
-          <div>
-            <span class="crm-folio-badge">#${o.id}</span>
-            <span class="crm-order-client">${o.clientName}</span>
-            <span class="crm-order-date">· ${dateFormatted}</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <select class="crm-status-select" onchange="updateCrmOrderStatus('${o.id}', this.value)" style="color: ${statusInfo.color};">
-              <option value="PAGADO_MERCADOPAGO" ${o.status === 'PAGADO_MERCADOPAGO' ? 'selected' : ''}>Pagado Mercado Pago</option>
-              <option value="EN_PRODUCCION" ${o.status === 'EN_PRODUCCION' ? 'selected' : ''}>En Producción</option>
-              <option value="LISTO_PICKUP" ${o.status === 'LISTO_PICKUP' ? 'selected' : ''}>Listo para Entrega</option>
-              <option value="ENTREGADO" ${o.status === 'ENTREGADO' ? 'selected' : ''}>Entregado</option>
-            </select>
-          </div>
+      <div class="crm-order-card" style="background: ${isPending ? '#1f1007' : '#160b06'}; border: 1px solid ${isPending ? 'rgba(255, 149, 0, 0.4)' : 'var(--gold-border)'}; border-radius: 8px; padding: 14px; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <strong style="color: var(--gold-light); font-size: 1.05rem;">${o.folio || '#KAK-ORDEN'}</strong>
+          <span style="font-size: 0.95rem; font-weight: 800; color: ${isPending ? '#ff9f0a' : '#4cd964'};">$${Number(o.total || 0).toLocaleString('es-MX')} MXN</span>
         </div>
-
-        <div class="crm-order-body">
-          <div class="crm-order-details">
-            <div><strong>Recolección:</strong> ${o.orderDate || 'Sin fecha'} (${o.orderTime || ''})</div>
-            <div><strong>Teléfono:</strong> ${o.clientPhone}</div>
-            ${o.cardHolder ? `<div><strong>Titular Tarjeta:</strong> ${o.cardHolder} (${o.cardBrand} **** ${o.cardLast4})</div>` : ''}
-            ${o.notes ? `<div><strong>Nota:</strong> <em>"${o.notes}"</em></div>` : ''}
-            <div style="margin-top: 6px;"><strong>Productos:</strong><br>${itemsSummary}</div>
-          </div>
-
-          <div class="crm-order-financials">
-            <div class="crm-fin-row">
-              <span>Método:</span>
-              <strong style="color: #25d366;">Mercado Pago</strong>
-            </div>
-            <div class="crm-fin-row total-fin-row">
-              <span>Total Pagado:</span>
-              <strong>${formatCurrency(o.totalAmount)}</strong>
-            </div>
-          </div>
+        <div style="margin-bottom: 8px;">
+          ${badgeHtml}
         </div>
-
-        <div class="crm-order-actions-bar">
-          <a href="${waLink}" target="_blank" class="btn-crm-wa-direct">
-            Contactar por WhatsApp
-          </a>
-          <button type="button" class="btn-crm-del-order" onclick="deleteCrmOrder('${o.id}')">
-            Eliminar
-          </button>
+        <div style="font-size: 0.88rem; color: #ffffff; margin-bottom: 4px;">
+          <strong>Cliente:</strong> ${o.clientName} · <strong>Tel:</strong> <a href="tel:${o.clientPhone}" style="color: var(--gold-warm);">${o.clientPhone}</a>
+        </div>
+        <div style="font-size: 0.82rem; color: var(--text-dim); margin-bottom: 4px;">
+          <strong>Canal:</strong> ${methodLabel} · <strong>Pick Up:</strong> ${o.pickupDate}
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 8px;">
+          <strong>Registro:</strong> ${new Date(o.date).toLocaleString('es-MX')}
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.08);">
+          <span style="font-size: 0.78rem; color: var(--text-dim);">Cambiar estado:</span>
+          <select style="background: #241107; color: #ffffff; border: 1px solid var(--gold-border); padding: 6px 10px; border-radius: 6px; font-size: 0.82rem; font-weight: 600;" onchange="updateOrderStatus('${o.folio}', this.value)">
+            <option value="PENDIENTE_PAGO" ${o.status === 'PENDIENTE_PAGO' ? 'selected' : ''}>⏳ Pendiente de Pago (Esperando dinero)</option>
+            <option value="PAGADO_CONFIRMADO" ${o.status === 'PAGADO_CONFIRMADO' ? 'selected' : ''}>🟢 Pago Confirmado / En Cuenta</option>
+            <option value="EN_PRODUCCION" ${o.status === 'EN_PRODUCCION' ? 'selected' : ''}>🟣 En Producción / Taller</option>
+            <option value="LISTO_PICKUP" ${o.status === 'LISTO_PICKUP' ? 'selected' : ''}>📦 Listo para Entrega Pick Up</option>
+            <option value="ENTREGADO" ${o.status === 'ENTREGADO' ? 'selected' : ''}>✅ Entregado</option>
+            <option value="CANCELADO" ${o.status === 'CANCELADO' ? 'selected' : ''}>❌ Cancelado / No Pagado</option>
+          </select>
         </div>
       </div>
     `;
   });
 
-  listElem.innerHTML = html;
-};
+  container.innerHTML = html;
+}
 
-window.filterCrmOrders = function() {
-  renderCrmOrders();
-};
-
-window.updateCrmOrderStatus = function(orderId, newStatus) {
-  const orders = getCrmOrders();
-  const index = orders.findIndex(o => o.id === orderId);
-  if (index !== -1) {
-    orders[index].status = newStatus;
-    localStorage.setItem('kakao_crm_orders', JSON.stringify(orders));
-    renderCrmOrders();
+function updateOrderStatus(folio, newStatus) {
+  const orders = getStoredCrmOrders();
+  const order = orders.find(o => o.folio === folio);
+  if (order) {
+    order.status = newStatus;
+    localStorage.setItem(CRM_STORAGE_KEY, JSON.stringify(orders));
+    renderCrmDashboard();
   }
-};
+}
 
-window.deleteCrmOrder = function(orderId) {
-  if (confirm(`¿Seguro que deseas eliminar el pedido #${orderId}?`)) {
-    let orders = getCrmOrders();
-    orders = orders.filter(o => o.id !== orderId);
-    localStorage.setItem('kakao_crm_orders', JSON.stringify(orders));
-    renderCrmOrders();
-  }
-};
-
-window.clearCrmOrdersHistory = function() {
-  if (confirm('¿Seguro que deseas limpiar el historial de pedidos del CRM?')) {
-    localStorage.removeItem('kakao_crm_orders');
-    renderCrmOrders();
-  }
-};
-
-window.exportCrmOrdersCSV = function() {
-  const orders = getCrmOrders();
+function exportCrmOrdersCSV() {
+  const orders = getStoredCrmOrders();
   if (orders.length === 0) {
     alert('No hay pedidos para exportar.');
     return;
   }
 
-  let csvContent = '\uFEFF';
-  csvContent += 'Folio,Fecha Registro,Cliente,Telefono,Fecha Recoleccion,Horario,Metodo Pago,Total,Estado,Detalle Productos,Notas\n';
-
+  let csvContent = 'data:text/csv;charset=utf-8,Folio,Cliente,Telefono,FechaEntrega,Total,Estado,Canal,FechaRegistro\n';
   orders.forEach(o => {
-    const productsClean = (o.items || []).map(i => `${i.qty}x ${i.name}`).join('; ');
-    const row = [
-      `"${o.id || ''}"`,
-      `"${new Date(o.createdAt).toLocaleString('es-MX')}"`,
-      `"${(o.clientName || '').replace(/"/g, '""')}"`,
-      `"${o.clientPhone || ''}"`,
-      `"${o.orderDate || ''}"`,
-      `"${o.orderTime || ''}"`,
-      `"${o.paymentMode || ''}"`,
-      o.totalAmount || 0,
-      `"${o.status || ''}"`,
-      `"${productsClean.replace(/"/g, '""')}"`,
-      `"${(o.notes || '').replace(/"/g, '""')}"`
-    ];
-    csvContent += row.join(',') + '\n';
+    csvContent += `"${o.folio}","${o.clientName}","${o.clientPhone}","${o.pickupDate}","${o.total}","${o.status}","${o.method || 'WEB'}","${o.date}"\n`;
   });
 
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
+  const encodedUri = encodeURI(csvContent);
   const link = document.createElement('a');
-  link.setAttribute('href', url);
-  link.setAttribute('download', `KAKAO_Pedidos_CRM_${new Date().toISOString().slice(0,10)}.csv`);
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', `pedidos_kakao_${new Date().toISOString().slice(0, 10)}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-};
+}
+
+function clearCrmOrdersHistory() {
+  if (confirm('¿Estás seguro de que deseas limpiar todo el historial de pedidos del CRM local?')) {
+    localStorage.removeItem(CRM_STORAGE_KEY);
+    renderCrmDashboard();
+  }
+}
