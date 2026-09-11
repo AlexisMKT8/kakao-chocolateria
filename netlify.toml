@@ -1,0 +1,15 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/mp-preference"
+  to = "https://api.mercadopago.com/checkout/preferences"
+  status = 200
+  force = true
+  headers = { Authorization = "Bearer APP_USR-6791239021176944-052015-228b2f95e2ebacbf0053f6ae85934566-168629346", Content-Type = "application/json" }
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"

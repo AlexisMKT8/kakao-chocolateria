@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/.netlify/functions/create-preference",
+      "destination": "/api/create-preference"
+    }
+  ]
+}
